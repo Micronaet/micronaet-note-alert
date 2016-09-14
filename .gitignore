@@ -3,6 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Micronaet:
+# temp file:
+*~
+
 # C extensions
 *.so
 
