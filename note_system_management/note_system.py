@@ -103,7 +103,7 @@ class NoteProductReportLine(orm.Model):
         'name': fields.char('Title', size=64, required=True),
         'sequence': fields.integer('Sequence'), 
         'report_id': fields.many2one('note.product.report', 'Report'),
-        'type_id': fields.many2one('note.type', 'Type'),        
+        'type_id': fields.many2one('note.type', 'Type', required=True),        
         }
 
 class NoteProductReport(orm.Model):
