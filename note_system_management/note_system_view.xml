@@ -1,6 +1,165 @@
 <?xml version="1.0"?>
 <openerp>
     <data>
+        <!--note.department-->
+        <record model="ir.ui.view" id="view_note_department_form">
+            <field name="name">note.department.form</field>
+            <field name="model">note.department</field>
+            <field name="arch" type="xml">
+                <form string="Note department" version="7.0">        
+                    <sheet>
+                        <group col="4" colspan="4">
+                            <field name="name" />
+                            <separator string="Note" colspan="4"/>
+                            <field name="note" nolabel="1" colspan="4"/>
+                        </group>
+                    </sheet>        
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_note_department_tree">
+            <field name="name">note.department.tree</field>
+            <field name="model">note.department</field>
+            <field name="arch" type="xml">
+                <tree string="Note department" version="7.0">        
+                    <field name="name"/>
+                    <field name="note" nolabel="1" colspan="4"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_note_department">
+            <field name="name">Note department</field>
+            <field name="res_model">note.department</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_note_department_tree"/>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+        </record>
+        <record model="ir.ui.view" id="view_note_type_form">
+            <field name="name">note.type.form</field>
+            <field name="model">note.type</field>
+            <field name="arch" type="xml">
+                <form string="Note type" version="7.0">        
+                    <sheet>
+                        <group col="4" colspan="4">
+                            <field name="name"/>
+                            <separator string="Note" colspan="4"/>
+                            <field name="note" nolabel="1" colspan="4"/>
+                        </group>
+                    </sheet>        
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_note_type_tree">
+            <field name="name">note.type.tree</field>
+            <field name="model">note.type</field>
+            <field name="arch" type="xml">
+                <tree string="Note type" version="7.0">        
+                    <field name="name"/>
+                    <field name="note" nolabel="1" colspan="4"/>
+                </tree>
+            </field>
+        </record>
+       
+        <record model="ir.actions.act_window" id="action_note_type">
+            <field name="name">Note type</field>
+            <field name="res_model">note.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_note_department_tree"/>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+        </record>
+        
+        <record model="ir.ui.view" id="view_note_note_form">
+            <field name="name">note.note.form</field>
+            <field name="model">note.note</field>
+            <field name="arch" type="xml">
+                <form string="Note note" version="7.0">        
+                    <sheet>
+                        <group col="4" colspan="4">
+                            <field name="name" />
+                            <separator string="Description" colspan="4"/>
+                            <field name="description" nolabel="1" colspan="4"/>
+                            <field name="overridable"/>
+                            <field name="type_id"/>
+                            <field name="product_id"/>
+                            <field name="partner_id"/>
+                            <field name="order_id"/>       
+                        </group>
+                    </sheet>        
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_note_note_tree">
+            <field name="name">note.note.tree</field>
+            <field name="model">note.note</field>
+            <field name="arch" type="xml">
+                <tree string="Note note" version="7.0">        
+                    <field name="name"/>
+                    <field name="description" nolabel="1" colspan="4"/>
+                    <field name="overridable"/>
+                    <field name="type_id"/>
+                    <field name="product_id"/>
+                    <field name="order_id"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_note_note">
+            <field name="name">Note note</field>
+            <field name="res_model">note.note</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_note_note_tree"/>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+        </record>
+        
+        <record model="ir.ui.view" id="view_note_product_report_form">
+            <field name="name">note.product.report.form</field>
+            <field name="model">note.product.report</field>
+            <field name="arch" type="xml">
+                <form string="Note product report" version="7.0">        
+                    <sheet>
+                        <group col="4" colspan="4">
+                            <field name="name" />
+                            <separator string="note" colspan="4"/>
+                            <field name="note" nolabel="1" colspan="4"/> 
+                        </group>
+                    </sheet>        
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_note_product_report_tree">
+            <field name="name">note.product.report.tree</field>
+            <field name="model">note.product.report</field>
+            <field name="arch" type="xml">
+                <tree string="Note product report" version="7.0">        
+                    <field name="name"/>
+                    <field name="note" nolabel="1" colspan="4"/>
+                </tree>
+        
+       
+   
+        
+                            
+                        
+        <menuitem 
+            parent="base.menu_sales"
+            name="Note system management" 
+            id="menu_note_system_management_root" 
+            sequence="40"
+            />
+            <menuitem 
+                parent="menu_note_system_management_root" 
+                id="menu_note_system_management_department" 
+                action="action_note_department"
+                />
+            
+        
+        
+        
 
     </data>
 </openerp>
