@@ -36,6 +36,8 @@
             <field name="context">{}</field>
             <field name="domain">[]</field>
         </record>
+        
+        <!--note.type-->
         <record model="ir.ui.view" id="view_note_type_form">
             <field name="name">note.type.form</field>
             <field name="model">note.type</field>
@@ -60,18 +62,18 @@
                     <field name="note" nolabel="1" colspan="4"/>
                 </tree>
             </field>
-        </record>
-       
+        </record>       
         <record model="ir.actions.act_window" id="action_note_type">
             <field name="name">Note type</field>
             <field name="res_model">note.type</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="view_note_department_tree"/>
+            <field name="view_id" ref="view_note_type_tree"/>
             <field name="context">{}</field>
             <field name="domain">[]</field>
         </record>
         
+        <!--note.note-->
         <record model="ir.ui.view" id="view_note_note_form">
             <field name="name">note.note.form</field>
             <field name="model">note.note</field>
@@ -87,6 +89,7 @@
                             <field name="product_id"/>
                             <field name="partner_id"/>
                             <field name="order_id"/>       
+                            <field name="line_id"/>       
                         </group>
                     </sheet>        
                 </form>
@@ -103,6 +106,7 @@
                     <field name="type_id"/>
                     <field name="product_id"/>
                     <field name="order_id"/>
+                    <field name="line_id"/>       
                 </tree>
             </field>
         </record>
@@ -116,6 +120,7 @@
             <field name="domain">[]</field>
         </record>
         
+        <!--note.product.report-->
         <record model="ir.ui.view" id="view_note_product_report_form">
             <field name="name">note.product.report.form</field>
             <field name="model">note.product.report</field>
@@ -139,12 +144,18 @@
                     <field name="name"/>
                     <field name="note" nolabel="1" colspan="4"/>
                 </tree>
-        
-       
-   
-        
-                            
-                        
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_note_product_report">
+            <field name="name">Note report</field>
+            <field name="res_model">note.product.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_note_product_report_tree"/>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+        </record>
+                
         <menuitem 
             parent="base.menu_sales"
             name="Note system management" 
@@ -155,12 +166,27 @@
                 parent="menu_note_system_management_root" 
                 id="menu_note_system_management_department" 
                 action="action_note_department"
+                sequence="10"
                 />
-            
-        
-        
-        
-
+            <menuitem 
+                parent="menu_note_system_management_root" 
+                id="menu_note_type" 
+                action="action_note_type"
+                sequence="20"
+                />
+            <menuitem 
+                parent="menu_note_system_management_root" 
+                id="menu_note_note" 
+                action="action_note_note"
+                sequence="30"
+                />
+            <menuitem 
+                parent="menu_note_system_management_root" 
+                id="menu_note_product_report" 
+                action="action_note_product_report"
+                sequence="40"
+                />
+                
     </data>
 </openerp>
 

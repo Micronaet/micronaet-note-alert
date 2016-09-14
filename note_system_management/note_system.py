@@ -79,6 +79,7 @@ class NoteNote(orm.Model):
         'product_id': fields.many2one('product.product', 'Product'), 
         'partner_id': fields.many2one('res.partner', 'Partner'), 
         'order_id': fields.many2one('sale.order', 'Order'),
+        'line_id': fields.many2one('sale.order.line', 'Order line'),
         }
 
 class NoteProductReport(orm.Model):
