@@ -100,13 +100,13 @@
             <field name="model">note.note</field>
             <field name="arch" type="xml">
                 <tree string="Note note" version="7.0">        
-                    <field name="name"/>
-                    <field name="description" nolabel="1" colspan="4"/>
-                    <field name="overridable"/>
-                    <field name="type_id"/>
-                    <field name="product_id"/>
-                    <field name="order_id"/>
-                    <field name="line_id"/>       
+                    <field name="name" />
+                    <field name="description" nolabel="1" colspan="4" />
+                    <field name="overridable" />
+                    <field name="type_id" />
+                    <field name="product_id" />
+                    <field name="order_id" />
+                    <field name="line_id" />       
                 </tree>
             </field>
         </record>
@@ -129,13 +129,12 @@
                     <sheet>
                         <group col="4" colspan="4">
                             <field name="name" />
-                            <field name="line_ids">
-                                <tree editable="bottom">
+                            <separator string="Line" colspan="4"/>
+                            <field name="line_ids" colspan="4" nolabel="1">
+                                <tree string="Detail" editable="bottom">
                                     <field name="sequence" />
+                                    <field name="type_id" />                                    
                                     <field name="name" />
-                                    <field name="sequence" />
-                                    <field name="type_id" />
-                                    
                                 </tree>
                             </field>
                             <separator string="note" colspan="4"/>
@@ -164,7 +163,32 @@
             <field name="context">{}</field>
             <field name="domain">[]</field>
         </record>
-                
+        
+        <!--Insert inherit note in various object-->
+        <record model="ir.ui.view" id="view_product_product_form">
+            <field name="name">product.product.form</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//notebook/page[2]" position="after">
+                     <page string="Note system" editable="bottom" >
+                         <field name="note_ids" colspan="4">
+                             <tree string="Note system">
+                                 <field name="overridable" />
+                                 <field name="name" />
+                                 <field name="description" />
+                                 <field name="type_id" />
+                                 <field name="product_id"/><!--invisible="1"-->
+                                 <field name="partner_id" />
+                                 <field name="order_id" />
+                                 <field name="line_id" />
+                             </tree>
+                         </field>
+                     </page>
+                 </xpath>
+            </field>
+        </record>
+
         <menuitem 
             parent="base.menu_sales"
             name="Note system management" 

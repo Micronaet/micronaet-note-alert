@@ -75,7 +75,9 @@ class NoteNote(orm.Model):
         'name': fields.char('Title', size=64, required=True),
         'description': fields.text('Description'),
         'overridable': fields.boolean('Overridable'),
-        'type_id': fields.many2one('note.type', 'Type'), 
+        'type_id': fields.many2one('note.type', 'Type', required=True), 
+        
+        # Linked object for part.
         'product_id': fields.many2one('product.product', 'Product'), 
         'partner_id': fields.many2one('res.partner', 'Partner'), 
         'order_id': fields.many2one('sale.order', 'Order'),
@@ -98,6 +100,7 @@ class NoteProductReportLine(orm.Model):
     """    
     _name = 'note.product.report.line'
     _description = 'Note product report'
+    _order = 'sequence,id'
     
     _columns = {
         'name': fields.char('Title', size=64, required=True),
@@ -116,4 +119,13 @@ class NoteProductReport(orm.Model):
             'note.product.report.line', 'report_id', 'Detail'), 
         }
     
+class ProductProduct(orm.Model):
+    """ Model name: ProductProduct
+    """    
+    _inherit = 'product.product'
+    
+    _columns = {
+        'note_ids': fields.one2many(
+            'note.note', 'product_id', 'Note system'), 
+        }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
