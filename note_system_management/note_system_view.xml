@@ -44,8 +44,8 @@
                     <field name="name" />
                     <field name="note" />
                     <field name="type_id" />
-                    <filter name="image_yes" string="Image yes" domain="[('image','=',True)]"/>
-                    <filter name="image_no" string="Image no" domain="[('image','=',False)]"/>
+                    <!--<filter name="image_yes" string="Image yes" domain="[('image','=',True)]"/>
+                    <filter name="image_no" string="Image no" domain="[('image','=',False)]"/>-->
                     <group expand="0" string="Group By...">
                         <!--<filter name="group_date" string="Date" context="{'group_by': 'date'}"/>-->
                         <filter name="group_type" string="Type" context="{'group_by': 'type_id'}"/>
