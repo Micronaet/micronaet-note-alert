@@ -1,6 +1,69 @@
 <?xml version="1.0"?>
 <openerp>
     <data>
+        <!--note.image-->
+        <record model="ir.ui.view" id="view_note_image_form">
+            <field name="name">note.image.form</field>
+            <field name="model">note.image</field>
+            <field name="arch" type="xml">
+                <form string="Note image" version="7.0">        
+                    <sheet>
+                        <group col="4" colspan="4">
+                            <field name="name" />
+                            <field name="type_id" />
+                            <group col="4" colspan="4">
+                                <group col="2" colspan="2">
+                                    <separator string="Note" colspan="2"/>
+                                    <field name="note" nolabel="1" colspan="2"/>
+                                </group>
+                                <group col="2" colspan="2">
+                                    <field name="image" widget="image" nolabel="1"/>
+                                </group>
+                            </group>                            
+                        </group>
+                    </sheet>        
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_note_image_tree">
+            <field name="name">note.image.tree</field>
+            <field name="model">note.image</field>
+            <field name="arch" type="xml">
+                <tree string="Note image" version="7.0">        
+                    <field name="name"/>
+                    <field name="type_id" />                    
+                    <field name="note" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_note_image_search">
+            <field name="name">note.image.search</field>
+            <field name="model">note.image</field>
+            <field name="arch" type="xml">
+                <search string="Note image search" version="7.0">        
+                    <field name="name" />
+                    <field name="note" />
+                    <field name="type_id" />
+                    <filter name="image_yes" string="Image yes" domain="[('image','=',True)]"/>
+                    <filter name="image_no" string="Image no" domain="[('image','=',False)]"/>
+                    <group expand="0" string="Group By...">
+                        <!--<filter name="group_date" string="Date" context="{'group_by': 'date'}"/>-->
+                        <filter name="group_type" string="Type" context="{'group_by': 'type_id'}"/>
+                    </group>                
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_note_image">
+            <field name="name">Note image</field>
+            <field name="res_model">note.image</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_note_image_tree"/>
+            <field name="search_view_id" ref="view_note_image_search"/>            
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+        </record>
+
         <!--note.department-->
         <record model="ir.ui.view" id="view_note_department_form">
             <field name="name">note.department.form</field>
@@ -23,7 +86,7 @@
             <field name="arch" type="xml">
                 <tree string="Note department" version="7.0">        
                     <field name="name"/>
-                    <field name="note" nolabel="1" colspan="4"/>
+                    <field name="note" />
                 </tree>
             </field>
         </record>
@@ -92,6 +155,7 @@
                     <field name="deadline" />
                     <field name="product_id" />
                     <field name="partner_id" />
+                    <field name="type_id" />
                     <field name="order_id" />
                     <field name="line_id" />
                     <!--<field name="overpartner_id" filter_domain="[('partner_id','=',self)]"/>-->
@@ -273,7 +337,6 @@
                 action="action_note_note"
                 sequence="10"
                 />
-
             <menuitem 
                 parent="menu_note_system_management_root"
                 name="Configuration" 
@@ -286,8 +349,7 @@
                     id="menu_note_system_management_department" 
                     action="action_note_department"
                     sequence="10"
-                    />
-                    
+                    />                    
                 <menuitem 
                     parent="menu_note_system_management_configuration" 
                     name="Tipology"
@@ -302,7 +364,13 @@
                     action="action_note_product_report"
                     sequence="30"
                     />
-                
+                <menuitem 
+                    parent="menu_note_system_management_configuration" 
+                    name="Default image"
+                    id="menu_note_system_management_image" 
+                    action="action_note_image"
+                    sequence="40"
+                    />                          
     </data>
 </openerp>
 

@@ -103,8 +103,10 @@ class NoteImage(orm.Model):
 
         filename = os.path.join(
             image_folder, '%s.%s' % (item_id, self._extension))
+
         image_file = open(filename, 'wb')
-        image_file.write(base64.decodestring(value))
+        if value:
+            image_file.write(base64.decodestring(value))
         image_file.close()        
         return True
     
@@ -132,7 +134,7 @@ class NoteImage(orm.Model):
         'note': fields.text('Note'),
         'type_id': fields.many2one('note.type', 'Type'),
         'image': fields.function(_get_note_default_image, 
-            fnct_inv=_set_note_default_image, 
+            fnct_inv=_set_note_default_image, string='Image',
             type='binary', method=True),
         }       
 
@@ -161,7 +163,8 @@ class NoteNote(orm.Model):
         filename = os.path.join(
             note_folder, '%s.%s' % (item_id, self._extension))
         image_file = open(filename, 'wb')
-        image_file.write(base64.decodestring(value))
+        if value:
+            image_file.write(base64.decodestring(value))
         image_file.close()        
         return True
     
@@ -204,7 +207,7 @@ class NoteNote(orm.Model):
         
         # Image block:
         'image': fields.function(_get_note_image, fnct_inv=_set_note_image, 
-            type='binary', method=True),
+            type='binary', method=True, string='Image'),
         'image_id': fields.many2one('note.image', 'Static image'), 
         
         # Linked object for part.
