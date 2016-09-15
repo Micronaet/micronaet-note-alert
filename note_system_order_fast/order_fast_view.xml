@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_note_order_fast_form">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_order_fast.view_sale_order_form_fast_form"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//notebook/page[2]" position="after">
+                     <page string="Note system" editable="bottom" >
+                         <field name="note_ids" colspan="4" context="{'default_partner_id': partner_id, 'default_order_id': active_id, 'order_embedded':True}" />
+                     </page>
+                 </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
+

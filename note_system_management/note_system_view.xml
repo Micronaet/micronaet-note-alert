@@ -46,9 +46,13 @@
                     <sheet>
                         <group col="4" colspan="4">
                             <field name="name"/>
+                            <field name="department_ids" widget="many2many_tags" />
+                                                        
                             <field name="linked_image" />
+                            <newline/>
                             <field name="linked_object" attrs="{'required':[('linked_image','=',True)], 'invisible':[('linked_image','=',False)]}"/>
                             <field name="linked_image_field" attrs="{'required':[('linked_image','=',True)], 'invisible':[('linked_image','=',False)]}" />
+                            
                             
                             <separator string="Note" colspan="4"/>
                             <field name="note" nolabel="1" colspan="4"/>
