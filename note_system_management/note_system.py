@@ -85,12 +85,55 @@ class NoteImage(orm.Model):
     # TODO
     _name = 'note.image'
     _description = 'Note image'
+
+    # Parameters:
+    _extension = 'png'
+    _root_path = 'note_image_default'
     
+    # -------------------------------------------------------------------------
+    # Functional field:
+    # -------------------------------------------------------------------------
+    def _set_note_default_image(self, cr, uid, item_id, name, value, fnct_inv_arg=None, 
+            context=None):
+        ''' Write image as stored file when insert
+        '''
+        company_pool = self.pool.get('res.company')
+        image_folder = os.path.expanduser(company_pool.get_base_local_folder(
+            cr, uid, subfolder=self._root_path, context=context))
+
+        filename = os.path.join(
+            image_folder, '%s.%s' % (item_id, self._extension))
+        image_file = open(filename, 'wb')
+        image_file.write(base64.decodestring(value))
+        image_file.close()        
+        return True
+    
+    def _get_note_default_image(self, cr, uid, ids, field, args, context=None):
+        ''' Use base folder for get ID.png filename from filesystem
+        '''
+        company_pool = self.pool.get('res.company')        
+        image_folder = os.path.expanduser(company_pool.get_base_local_folder(
+            cr, uid, subfolder=self._root_path, context=context))
+
+        res = {}
+        for image in self.browse(cr, uid, ids, context=context):
+            filename = os.path.join(
+                image_folder, '%s.%s' % (image.id, self._extension))
+            try:
+                f = open(filename , 'rb')
+                res[image.id] = base64.encodestring(f.read())
+                f.close()
+            except:
+                res[image.id] = ''
+        return res
+
     _columns = {
         'name': fields.char('Image', size=64, required=True),
         'note': fields.text('Note'),
         'type_id': fields.many2one('note.type', 'Type'),
-        'image': fields.binary('Image'), # TODO Save on file
+        'image': fields.function(_get_note_default_image, 
+            fnct_inv=_set_note_default_image, 
+            type='binary', method=True),
         }       
 
 class NoteNote(orm.Model):
@@ -127,7 +170,7 @@ class NoteNote(orm.Model):
         '''
         company_pool = self.pool.get('res.company')        
         note_folder = os.path.expanduser(company_pool.get_base_local_folder(
-            cr, uid, subfolder='note_image', context=context))
+            cr, uid, subfolder=self._root_path, context=context))
 
         res = {}
         for note in self.browse(cr, uid, ids, context=context):
