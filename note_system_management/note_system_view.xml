@@ -118,6 +118,7 @@
                             <field name="name" />
                             <field name="type_id"/>
                             <field name="create_uid" />
+                            <field name="image_id" />
                             <group colspan="2" col="2">
                                 <separator string="Description" colspan="4"/>
                                 <field name="description" nolabel="1" colspan="4"/>
@@ -131,7 +132,7 @@
                                     domain="[('order_id', '=', order_id)]"/> <!--,('product_id','=',product_id)-->
                             </group>    
                             <group colspan="2" col="2">                            
-                                <field name="image" widget="image" colspan="2" nolabel="1" />
+                                <field name="image" widget="image" colspan="2" nolabel="1" /> <!--img_width="800" width="800" -->
                             </group>                                							
                         </group>
                     </sheet>        
