@@ -117,6 +117,7 @@
                             <field name="deadline" />
                             <field name="name" />
                             <field name="type_id"/>
+                            <field name="create_uid" />
                             <group colspan="2" col="2">
                                 <separator string="Description" colspan="4"/>
                                 <field name="description" nolabel="1" colspan="4"/>
@@ -143,6 +144,7 @@
             <field name="arch" type="xml">
                 <tree string="Note note" version="7.0" colors="grey:overridable==True">        
                     <field name="overridable" />
+                    <field name="create_uid" />
                     <field name="name" />
                     <field name="date" />
                     <field name="deadline" />
@@ -255,6 +257,7 @@
             parent="base.menu_sales"
             name="Note system management" 
             id="menu_note_system_management_root" 
+            action="action_note_note"
             sequence="40"
             />
             <menuitem 

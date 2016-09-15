@@ -90,13 +90,15 @@ class NoteImage(orm.Model):
         'name': fields.char('Image', size=64, required=True),
         'note': fields.text('Note'),
         'type_id': fields.many2one('note.type', 'Type'),
-        }        
+        'image': fields.binary('Image'), # TODO Save on file
+        }       
 
 class NoteNote(orm.Model):
     """ Model name: NoteNote
     """    
     _name = 'note.note'
     _description = 'Note'
+    _order = 'date'
     
     # -------------------------------------------------------------------------
     # Functional field:
@@ -111,34 +113,38 @@ class NoteNote(orm.Model):
                 cr, uid, subfolder='note_image', context=context))
 
         res = {}
-        for product in self.browse(cr, uid, ids, context=context):
-            note_type = product.type_id
+        for note in self.browse(cr, uid, ids, context=context):
+            note_type = note.type_id
             linked_image = note_type.linked_image
-            if linked_image:
-                res[product.id] = product.__getattribute__(
+            if note.image_id: # Static image
+                res[note.id] = note.image_id.image                
+            elif linked_image: # Linked category image
+                res[note.id] = note.__getattribute__(
                     note_type.linked_object).__getattribute__(
                     note_type.linked_image_field)
-            else: # stored file
+            else: # Stored note file
                 filename = os.path.join(
-                    note_folder, '%s.%s' % (product.id, extension))
+                    note_folder, '%s.%s' % (note.id, extension))
                 try:
                     f = open(filename , 'rb')
-                    res[product.id] = base64.encodestring(f.read())
+                    res[note.id] = base64.encodestring(f.read())
                     f.close()
                 except:
-                    res[product.id] = ''
+                    res[note.id] = ''
         return res
-    
+
     _columns = {        
         'name': fields.char('Title', size=64, required=True),
         'type_id': fields.many2one('note.type', 'Type', required=True), 
-        'date': fields.date('Date', required=True),
+        'create_uid': fields.many2one('res.users', 'Created By', readonly=True),
+        'date': fields.datetime('Date', required=True),
         'deadline': fields.date('Deadline date'),
         'description': fields.text('Description'),
         'overridable': fields.boolean('Overridable'),
         
         # Image block:
         'image': fields.function(_get_note_image, type='binary', method=True),
+        'image_id': fields.many2one('note.image', 'Static image'), 
         
         # Linked object for part.
         'product_id': fields.many2one('product.product', 'Product'), 
@@ -149,7 +155,7 @@ class NoteNote(orm.Model):
          
     _defaults = {
         'date': lambda *x: datetime.now().strftime(
-            DEFAULT_SERVER_DATE_FORMAT),
+            DEFAULT_SERVER_DATETIME_FORMAT),
         }    
 
 class NoteProductReport(orm.Model):
