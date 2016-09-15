@@ -141,7 +141,8 @@ class NoteNote(orm.Model):
         'image': fields.function(_get_note_image, type='binary', method=True),
         
         # Linked object for part.
-        'product_id': fields.many2one('product.product', 'Product'), 
+        'product_id': fields.many2one('product.product', 'Product', 
+            required=True), 
         'partner_id': fields.many2one('res.partner', 'Partner'), 
         'order_id': fields.many2one('sale.order', 'Order'),
         'line_id': fields.many2one('sale.order.line', 'Order line'),

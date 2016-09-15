@@ -97,7 +97,7 @@
                                 <field name="product_id" invisible="context.get('product_embedded',False)" />
                                 <field name="partner_id" invisible="context.get('partner_embedded',False)" />
                                 <field name="order_id" invisible="context.get('order_embedded',False)" attrs="{'invisible':[('partner_id','=',False)]}" domain="[('partner_id', '=', partner_id)]"/>
-                                <field name="line_id" invisible="context.get('line_embedded',False)" attrs="{'invisible':[('order_id','=',False)]}" domain="[('order_id', '=' order_id)]"/>
+                                <field name="line_id" invisible="context.get('line_embedded',False)" attrs="{'invisible':[('order_id','=',False)]}" domain="[('order_id', '=', order_id)]"/>
                             </group>    
                             <group colspan="2" col="2">                            
                                 <field name="image" widget="image" colspan="2" nolabel="1" />
