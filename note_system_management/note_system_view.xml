@@ -85,6 +85,8 @@
                 <form string="Note note" version="7.0">        
                     <sheet>
                         <group col="4" colspan="4">
+                            <field name="datetime" />
+                            <field name="deadline" />
                             <field name="name" />
                             <field name="type_id"/>
                             <group colspan="2" col="2">
@@ -112,6 +114,8 @@
                 <tree string="Note note" version="7.0" colors="grey:overridable==True">        
                     <field name="overridable" />
                     <field name="name" />
+                    <field name="datetime" />
+                    <field name="deadline" />
                     <field name="description" nolabel="1" colspan="4" />
                     <field name="type_id" />
                     
@@ -190,10 +194,10 @@
             </field>
         </record>
 
-        <record model="ir.ui.view" id="view_product_product_form">
+        <record model="ir.ui.view" id="view_partner_note_system_form">
             <field name="name">res.partner.note.system.form</field>
             <field name="model">res.partner</field>
-            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
                  <xpath expr="//notebook/page[2]" position="after">
                      <page string="Note system" editable="bottom" >

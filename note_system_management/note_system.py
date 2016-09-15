@@ -133,6 +133,7 @@ class NoteNote(orm.Model):
         'name': fields.char('Title', size=64, required=True),
         'type_id': fields.many2one('note.type', 'Type', required=True), 
         'datetime': fields.date('Date'),
+        'deadline': fields.date('Deadline date'),
         'description': fields.text('Description'),
         'overridable': fields.boolean('Overridable'),
         
@@ -145,9 +146,10 @@ class NoteNote(orm.Model):
         'order_id': fields.many2one('sale.order', 'Order'),
         'line_id': fields.many2one('sale.order.line', 'Order line'),
         }
-        
+         
     _default = {
-        
+        'datetime': lambda *x: datetime.now().strftime(
+            DEFAULT_SERVER_DATETIME_FORMAT),
         }    
 
 class NoteProductReport(orm.Model):
