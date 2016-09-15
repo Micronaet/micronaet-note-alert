@@ -147,7 +147,7 @@ class NoteNote(orm.Model):
         'line_id': fields.many2one('sale.order.line', 'Order line'),
         }
          
-    _default = {
+    _defaults = {
         'date': lambda *x: datetime.now().strftime(
             DEFAULT_SERVER_DATE_FORMAT),
         }    
@@ -211,6 +211,6 @@ class SaleOrder(orm.Model):
     _inherit = 'sale.order'
     
     _columns = {
-        'note_ids': fields.one2many('note.note', 'partner_id', 'Note system'), 
+        'note_ids': fields.one2many('note.note', 'order_id', 'Note system'), 
         }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -78,6 +78,34 @@
         </record>
         
         <!--note.note-->
+        <record model="ir.ui.view" id="view_note_note_search">
+            <field name="name">note.note.search</field>
+            <field name="model">note.note</field>
+            <field name="arch" type="xml">
+                <search string="Note search" version="7.0">        
+                    <field name="name" />
+                    <field name="date" />
+                    <field name="deadline" />
+                    <field name="product_id" />
+                    <field name="partner_id" />
+                    <field name="order_id" />
+                    <field name="line_id" />
+                    <!--<field name="overpartner_id" filter_domain="[('partner_id','=',self)]"/>-->
+                    <filter name="overridable_yes" string="Overridable" domain="[('overridable','=',True)]"/>
+                    <filter name="overridable_no" string="Not overridable" domain="[('overridable','=',False)]"/>
+                    <group expand="0" string="Group By...">
+                        <filter name="group_date" string="Date" context="{'group_by': 'date'}"/>
+                        <filter name="group_type" string="Type" context="{'group_by': 'type_id'}"/>
+                        <filter name="group_deadline" string="Deadline" context="{'group_by': 'deadline'}"/>
+                        <filter name="group_product" string="Product" context="{'group_by': 'product_id'}"/>
+                        <filter name="group_partner" string="Partner" context="{'group_by': 'partner_id'}"/>
+                        <filter name="group_order" string="Order" context="{'group_by': 'order_id'}"/>
+                        <filter name="line_partner" string="Line" context="{'group_by': 'line_id'}"/>
+                        <filter name="group_overridable" string="Overridable" context="{'group_by': 'overridable'}"/>
+                    </group>                
+                </search>
+            </field>
+        </record>
         <record model="ir.ui.view" id="view_note_note_form">
             <field name="name">note.note.form</field>
             <field name="model">note.note</field>
@@ -121,10 +149,10 @@
                     <field name="description" nolabel="1" colspan="4" />
                     <field name="type_id" />
                     
-                    <field name="product_id" />
-                    <field name="partner_id" />
-                    <field name="order_id" />
-                    <field name="line_id" />
+                    <field name="product_id" invisible="context.get('product_embedded',False)"/>
+                    <field name="partner_id" invisible="context.get('partner_embedded',False)"/>
+                    <field name="order_id" invisible="context.get('order_embedded',False)"/>
+                    <field name="line_id" invisible="context.get('line_embedded',False)"/>
                 </tree>
             </field>
         </record>
@@ -134,6 +162,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_note_note_tree"/>
+            <field name="search_view_id" ref="view_note_note_search"/>            
             <field name="context">{}</field>
             <field name="domain">[]</field>
         </record>
@@ -209,7 +238,7 @@
             </field>
         </record>
         
-        <record model="ir.ui.view" id="view_sale_order_note_system_form">
+        <record model="ir.ui.view" id="view_sale_order_note_system_inherit_form">
             <field name="name">sale.order.note.system.form</field>
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
