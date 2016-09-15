@@ -257,7 +257,7 @@
         <!--base.menu_sales-->
         <menuitem 
             parent="base.menu_base_partner"
-            name="Note system management" 
+            name="Note management" 
             id="menu_note_system_management_root" 
             action="action_note_note"
             sequence="20"
