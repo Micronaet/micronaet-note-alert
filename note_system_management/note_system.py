@@ -70,13 +70,13 @@ class NoteType(orm.Model):
             ('product_id', 'Product'),
             ('partner_id', 'Partner'),
             ], 'Linked object', 
-            help='For show image linked to object')
+            help='For show image linked to object'),
         'linked_image_field': fields.char('Image field name', size=64, 
             help='Image field name of linked object'),            
         }
 
     _defaults = {
-        'linked_object': lambda *x: 'product.product',
+        'linked_object': lambda *x: 'product_id',
         }
 
 class NoteNote(orm.Model):
@@ -99,7 +99,7 @@ class NoteNote(orm.Model):
 
         res = {}
         for product in self.browse(cr, uid, ids, context=context):
-            note_type = item_id.type_id
+            note_type = product.type_id
             linked_image = note_type.linked_image
             if linked_image:
                 res[product.id] = product.__getattribute__(

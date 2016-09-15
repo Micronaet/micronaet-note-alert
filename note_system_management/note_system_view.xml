@@ -46,6 +46,10 @@
                     <sheet>
                         <group col="4" colspan="4">
                             <field name="name"/>
+                            <field name="linked_image" />
+                            <field name="linked_object" attrs="{'required':[('linked_image','=',True)], 'invisible':[('linked_image','=',False)]}"/>
+                            <field name="linked_image_field" attrs="{'required':[('linked_image','=',True)], 'invisible':[('linked_image','=',False)]}" />
+                            
                             <separator string="Note" colspan="4"/>
                             <field name="note" nolabel="1" colspan="4"/>
                         </group>
@@ -58,7 +62,7 @@
             <field name="model">note.type</field>
             <field name="arch" type="xml">
                 <tree string="Note type" version="7.0">        
-                    <field name="name"/>
+                    <field name="name"/>                    
                     <field name="note" nolabel="1" colspan="4"/>
                 </tree>
             </field>
@@ -194,28 +198,36 @@
             />
             <menuitem 
                 parent="menu_note_system_management_root" 
-                id="menu_note_system_management_department" 
-                action="action_note_department"
-                sequence="10"
-                />
-            <menuitem 
-                parent="menu_note_system_management_root" 
-                id="menu_note_type" 
-                action="action_note_type"
-                sequence="20"
-                />
-            <menuitem 
-                parent="menu_note_system_management_root" 
                 id="menu_note_note" 
                 action="action_note_note"
-                sequence="30"
+                sequence="10"
                 />
+
             <menuitem 
-                parent="menu_note_system_management_root" 
-                id="menu_note_product_report" 
-                action="action_note_product_report"
-                sequence="40"
+                parent="menu_note_system_management_root"
+                name="Configuration" 
+                id="menu_note_system_management_configuration" 
+                sequence="99"
                 />
+                <menuitem 
+                    parent="menu_note_system_management_configuration" 
+                    id="menu_note_system_management_department" 
+                    action="action_note_department"
+                    sequence="10"
+                    />
+                    
+                <menuitem 
+                    parent="menu_note_system_management_configuration" 
+                    id="menu_note_type" 
+                    action="action_note_type"
+                    sequence="20"
+                    />
+                <menuitem 
+                    parent="menu_note_system_management_configuration" 
+                    id="menu_note_product_report" 
+                    action="action_note_product_report"
+                    sequence="30"
+                    />
                 
     </data>
 </openerp>
