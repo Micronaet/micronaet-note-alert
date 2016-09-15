@@ -254,15 +254,17 @@
             </field>
         </record>
 
+        <!--base.menu_sales-->
         <menuitem 
-            parent="base.menu_sales"
+            parent="base.menu_base_partner"
             name="Note system management" 
             id="menu_note_system_management_root" 
             action="action_note_note"
-            sequence="40"
+            sequence="20"
             />
             <menuitem 
                 parent="menu_note_system_management_root" 
+                name="Note"
                 id="menu_note_note" 
                 action="action_note_note"
                 sequence="10"
@@ -276,6 +278,7 @@
                 />
                 <menuitem 
                     parent="menu_note_system_management_configuration" 
+                    name="Department"
                     id="menu_note_system_management_department" 
                     action="action_note_department"
                     sequence="10"
@@ -283,12 +286,14 @@
                     
                 <menuitem 
                     parent="menu_note_system_management_configuration" 
+                    name="Tipology"
                     id="menu_note_type" 
                     action="action_note_type"
                     sequence="20"
                     />
                 <menuitem 
                     parent="menu_note_system_management_configuration" 
+                    name="Report"
                     id="menu_note_product_report" 
                     action="action_note_product_report"
                     sequence="30"
