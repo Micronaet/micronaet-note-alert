@@ -100,17 +100,34 @@ class NoteNote(orm.Model):
     _description = 'Note'
     _order = 'date'
     
+    # Parameters:
+    _extension = 'png'
+    _root_path = 'note_image'
+
     # -------------------------------------------------------------------------
     # Functional field:
     # -------------------------------------------------------------------------
+    def _set_note_image(self, cr, uid, item_id, name, value, fnct_inv_arg=None, 
+            context=None):
+        ''' Write image as stored file when insert
+        '''
+        company_pool = self.pool.get('res.company')
+        note_folder = os.path.expanduser(company_pool.get_base_local_folder(
+            cr, uid, subfolder=self._root_path, context=context))
+
+        filename = os.path.join(
+            note_folder, '%s.%s' % (item_id, self._extension))
+        image_file = open(filename, 'wb')
+        image_file.write(base64.decodestring(value))
+        image_file.close()        
+        return True
+    
     def _get_note_image(self, cr, uid, ids, field, args, context=None):
         ''' Use base folder for get ID.png filename from filesystem
         '''
-        extension = 'png'
-
-        note_folder = os.path.expanduser(
-            self.pool.get('res.company').get_base_local_folder(
-                cr, uid, subfolder='note_image', context=context))
+        company_pool = self.pool.get('res.company')        
+        note_folder = os.path.expanduser(company_pool.get_base_local_folder(
+            cr, uid, subfolder='note_image', context=context))
 
         res = {}
         for note in self.browse(cr, uid, ids, context=context):
@@ -124,7 +141,7 @@ class NoteNote(orm.Model):
                     note_type.linked_image_field)
             else: # Stored note file
                 filename = os.path.join(
-                    note_folder, '%s.%s' % (note.id, extension))
+                    note_folder, '%s.%s' % (note.id, self._extension))
                 try:
                     f = open(filename , 'rb')
                     res[note.id] = base64.encodestring(f.read())
@@ -143,7 +160,8 @@ class NoteNote(orm.Model):
         'overridable': fields.boolean('Overridable'),
         
         # Image block:
-        'image': fields.function(_get_note_image, type='binary', method=True),
+        'image': fields.function(_get_note_image, fnct_inv=_set_note_image, 
+            type='binary', method=True),
         'image_id': fields.many2one('note.image', 'Static image'), 
         
         # Linked object for part.
