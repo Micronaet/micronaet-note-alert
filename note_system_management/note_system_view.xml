@@ -82,14 +82,20 @@
                     <sheet>
                         <group col="4" colspan="4">
                             <field name="name" />
-                            <separator string="Description" colspan="4"/>
-                            <field name="description" nolabel="1" colspan="4"/>
-                            <field name="overridable"/>
                             <field name="type_id"/>
-                            <field name="product_id"/>
-                            <field name="partner_id"/>
-                            <field name="order_id"/>       
-                            <field name="line_id"/>       
+                            <group colspan="2" col="2">
+                                <separator string="Description" colspan="4"/>
+                                <field name="description" nolabel="1" colspan="4"/>
+
+                                <field name="overridable"/>
+                                <field name="product_id" invisible="context.get('product_embedded',False)"/>
+                                <field name="partner_id" invisible="context.get('partner_embedded',False)" />
+                                <field name="order_id" invisible="context.get('order_embedded',False)" />
+                                <field name="line_id" invisible="context.get('line_embedded',False)" />
+                            </group>    
+                            <group colspan="2" col="2">                            
+                                <field name="image" widget="image" colspan="2" nolabel="1" />
+                            </group>                                							
                         </group>
                     </sheet>        
                 </form>
@@ -99,14 +105,16 @@
             <field name="name">note.note.tree</field>
             <field name="model">note.note</field>
             <field name="arch" type="xml">
-                <tree string="Note note" version="7.0">        
+                <tree string="Note note" version="7.0" colors="grey:overridable==True">        
+                    <field name="overridable" />
                     <field name="name" />
                     <field name="description" nolabel="1" colspan="4" />
-                    <field name="overridable" />
                     <field name="type_id" />
-                    <field name="product_id" />
-                    <field name="order_id" />
-                    <field name="line_id" />       
+                    
+                    <field name="product_id" invisible="context.get('product_embedded',False)"/>
+                    <field name="partner_id" invisible="context.get('partner_embedded',False)" />
+                    <field name="order_id" invisible="context.get('order_embedded',False)" />
+                    <field name="line_id" invisible="context.get('line_embedded',False)" />
                 </tree>
             </field>
         </record>
@@ -172,18 +180,7 @@
             <field name="arch" type="xml">
                  <xpath expr="//notebook/page[2]" position="after">
                      <page string="Note system" editable="bottom" >
-                         <field name="note_ids" colspan="4">
-                             <tree string="Note system">
-                                 <field name="overridable" />
-                                 <field name="name" />
-                                 <field name="description" />
-                                 <field name="type_id" />
-                                 <field name="product_id"/><!--invisible="1"-->
-                                 <field name="partner_id" />
-                                 <field name="order_id" />
-                                 <field name="line_id" />
-                             </tree>
-                         </field>
+                         <field name="note_ids" colspan="4" context="{'product_embedded':True}"/>
                      </page>
                  </xpath>
             </field>

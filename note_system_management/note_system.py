@@ -20,6 +20,7 @@
 import os
 import sys
 import logging
+import base64
 import openerp
 import openerp.netsvc as netsvc
 import openerp.addons.decimal_precision as dp
@@ -62,7 +63,20 @@ class NoteType(orm.Model):
         'department_ids': fields.many2many(
             'note.department', 'type_department_note_rel', 
             'type_id', 'department_id', 
-            'Department'), 
+            'Department'),
+        'linked_image': fields.boolean('Linked image', 
+            help='If checked use image from linked module, else store file'),
+        'linked_object': fields.selection([
+            ('product_id', 'Product'),
+            ('partner_id', 'Partner'),
+            ], 'Linked object', 
+            help='For show image linked to object')
+        'linked_image_field': fields.char('Image field name', size=64, 
+            help='Image field name of linked object'),            
+        }
+
+    _defaults = {
+        'linked_object': lambda *x: 'product.product',
         }
 
 class NoteNote(orm.Model):
@@ -71,11 +85,46 @@ class NoteNote(orm.Model):
     _name = 'note.note'
     _description = 'Note'
     
-    _columns = {
+    # -------------------------------------------------------------------------
+    # Functional field:
+    # -------------------------------------------------------------------------
+    def _get_note_image(self, cr, uid, ids, field, args, context=None):
+        ''' Use base folder for get ID.png filename from filesystem
+        '''
+        extension = 'png'
+
+        note_folder = os.path.expanduser(
+            self.pool.get('res.company').get_base_local_folder(
+                cr, uid, subfolder='note_image', context=context))
+
+        res = {}
+        for product in self.browse(cr, uid, ids, context=context):
+            note_type = item_id.type_id
+            linked_image = note_type.linked_image
+            if linked_image:
+                res[product.id] = product.__getattribute__(
+                    note_type.linked_object).__getattribute__(
+                    note_type.linked_image_field)
+            else: # stored file
+                filename = os.path.join(
+                    note_folder, '%s.%s' % (product.id, extension))
+                try:
+                    f = open(filename , 'rb')
+                    res[product.id] = base64.encodestring(f.read())
+                    f.close()
+                except:
+                    res[product.id] = ''
+        return res
+    
+    _columns = {        
         'name': fields.char('Title', size=64, required=True),
+        'type_id': fields.many2one('note.type', 'Type', required=True), 
+        'datetime': fields.date('Date'),
         'description': fields.text('Description'),
         'overridable': fields.boolean('Overridable'),
-        'type_id': fields.many2one('note.type', 'Type', required=True), 
+        
+        # Image block:
+        'image': fields.function(_get_note_image, type='binary', method=True),
         
         # Linked object for part.
         'product_id': fields.many2one('product.product', 'Product'), 
@@ -83,6 +132,10 @@ class NoteNote(orm.Model):
         'order_id': fields.many2one('sale.order', 'Order'),
         'line_id': fields.many2one('sale.order.line', 'Order line'),
         }
+        
+    _default = {
+        
+        }    
 
 class NoteProductReport(orm.Model):
     """ Model name: NoteProductReport

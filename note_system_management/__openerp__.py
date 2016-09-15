@@ -31,6 +31,7 @@
         'base',
         'sale',
         'product',
+        'company_base_folder',
         ],
     'init_xml': [],
     'demo': [],
