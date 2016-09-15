@@ -188,7 +188,7 @@
             <field name="arch" type="xml">
                  <xpath expr="//notebook/page[2]" position="after">
                      <page string="Note system" editable="bottom" >
-                         <field name="note_ids" colspan="4" context="{'product_embedded':True}"/>
+                         <field name="note_ids" colspan="4" context="{'product_embedded':True, 'default_product_id': active_id}"/>
                      </page>
                  </xpath>
             </field>
@@ -201,7 +201,7 @@
             <field name="arch" type="xml">
                  <xpath expr="//notebook/page[2]" position="after">
                      <page string="Note system" editable="bottom" >
-                         <field name="note_ids" colspan="4" context="{'partner_embedded':True}"/>
+                         <field name="note_ids" colspan="4" context="{'partner_embedded':True, 'default_partner_id': active_id}" />
                      </page>
                  </xpath>
             </field>
