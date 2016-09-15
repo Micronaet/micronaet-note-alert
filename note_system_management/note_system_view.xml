@@ -85,7 +85,7 @@
                 <form string="Note note" version="7.0">        
                     <sheet>
                         <group col="4" colspan="4">
-                            <field name="datetime" />
+                            <field name="date" />
                             <field name="deadline" />
                             <field name="name" />
                             <field name="type_id"/>
@@ -97,7 +97,9 @@
                                 <field name="product_id" invisible="context.get('product_embedded',False)" />
                                 <field name="partner_id" invisible="context.get('partner_embedded',False)" />
                                 <field name="order_id" invisible="context.get('order_embedded',False)" attrs="{'invisible':[('partner_id','=',False)]}" domain="[('partner_id', '=', partner_id)]"/>
-                                <field name="line_id" invisible="context.get('line_embedded',False)" attrs="{'invisible':[('order_id','=',False)]}" domain="[('order_id', '=', order_id)]"/>
+                                <field name="line_id" invisible="context.get('line_embedded',False)" 
+                                    attrs="{'invisible':[('order_id','=',False)]}" 
+                                    domain="[('order_id', '=', order_id)]"/> <!--,('product_id','=',product_id)-->
                             </group>    
                             <group colspan="2" col="2">                            
                                 <field name="image" widget="image" colspan="2" nolabel="1" />
@@ -114,7 +116,7 @@
                 <tree string="Note note" version="7.0" colors="grey:overridable==True">        
                     <field name="overridable" />
                     <field name="name" />
-                    <field name="datetime" />
+                    <field name="date" />
                     <field name="deadline" />
                     <field name="description" nolabel="1" colspan="4" />
                     <field name="type_id" />
@@ -202,6 +204,19 @@
                  <xpath expr="//notebook/page[2]" position="after">
                      <page string="Note system" editable="bottom" >
                          <field name="note_ids" colspan="4" context="{'partner_embedded':True, 'default_partner_id': active_id}" />
+                     </page>
+                 </xpath>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="view_sale_order_note_system_form">
+            <field name="name">sale.order.note.system.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//notebook/page[2]" position="after">
+                     <page string="Note system" editable="bottom" >
+                         <field name="note_ids" colspan="4" context="{'default_partner_id': partner_id, 'default_order_id': active_id, 'order_embedded':True}" />
                      </page>
                  </xpath>
             </field>

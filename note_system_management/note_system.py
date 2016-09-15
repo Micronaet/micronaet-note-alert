@@ -132,7 +132,7 @@ class NoteNote(orm.Model):
     _columns = {        
         'name': fields.char('Title', size=64, required=True),
         'type_id': fields.many2one('note.type', 'Type', required=True), 
-        'datetime': fields.date('Date'),
+        'date': fields.date('Date', required=True),
         'deadline': fields.date('Deadline date'),
         'description': fields.text('Description'),
         'overridable': fields.boolean('Overridable'),
@@ -141,16 +141,15 @@ class NoteNote(orm.Model):
         'image': fields.function(_get_note_image, type='binary', method=True),
         
         # Linked object for part.
-        'product_id': fields.many2one('product.product', 'Product', 
-            required=True), 
+        'product_id': fields.many2one('product.product', 'Product'), 
         'partner_id': fields.many2one('res.partner', 'Partner'), 
         'order_id': fields.many2one('sale.order', 'Order'),
         'line_id': fields.many2one('sale.order.line', 'Order line'),
         }
          
     _default = {
-        'datetime': lambda *x: datetime.now().strftime(
-            DEFAULT_SERVER_DATETIME_FORMAT),
+        'date': lambda *x: datetime.now().strftime(
+            DEFAULT_SERVER_DATE_FORMAT),
         }    
 
 class NoteProductReport(orm.Model):
@@ -201,6 +200,15 @@ class ResPartner(orm.Model):
     """ Model name: ResPartner
     """    
     _inherit = 'res.partner'
+    
+    _columns = {
+        'note_ids': fields.one2many('note.note', 'partner_id', 'Note system'), 
+        }
+
+class SaleOrder(orm.Model):
+    """ Model name: SaleOrder
+    """    
+    _inherit = 'sale.order'
     
     _columns = {
         'note_ids': fields.one2many('note.note', 'partner_id', 'Note system'), 
