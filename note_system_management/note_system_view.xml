@@ -178,13 +178,26 @@
         
         <!--Insert inherit note in various object-->
         <record model="ir.ui.view" id="view_product_product_form">
-            <field name="name">product.product.form</field>
+            <field name="name">product.product.note.system.form</field>
             <field name="model">product.product</field>
             <field name="inherit_id" ref="product.product_normal_form_view"/>
             <field name="arch" type="xml">
                  <xpath expr="//notebook/page[2]" position="after">
                      <page string="Note system" editable="bottom" >
                          <field name="note_ids" colspan="4" context="{'product_embedded':True}"/>
+                     </page>
+                 </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_product_product_form">
+            <field name="name">res.partner.note.system.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//notebook/page[2]" position="after">
+                     <page string="Note system" editable="bottom" >
+                         <field name="note_ids" colspan="4" context="{'partner_embedded':True}"/>
                      </page>
                  </xpath>
             </field>

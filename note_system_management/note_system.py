@@ -40,14 +40,14 @@ from openerp.tools import (DEFAULT_SERVER_DATE_FORMAT,
 _logger = logging.getLogger(__name__)
 
 class NoteDepartment(orm.Model):
-    """ Model name: NoteType
+    """ Model name: NoteDepartment
     """    
     _name = 'note.department'
     _description = 'Note department'
     
     _columns = {
         'name': fields.char('Department', size=64, required=True),
-        'note': fields.text('Note') ,
+        'note': fields.text('Note'),
         }
 
 class NoteType(orm.Model):
@@ -78,6 +78,19 @@ class NoteType(orm.Model):
     _defaults = {
         'linked_object': lambda *x: 'product_id',
         }
+
+class NoteImage(orm.Model):
+    """ Model name: NoteImage
+    """    
+    # TODO
+    _name = 'note.image'
+    _description = 'Note image'
+    
+    _columns = {
+        'name': fields.char('Image', size=64, required=True),
+        'note': fields.text('Note'),
+        'type_id': fields.many2one('note.type', 'Type'),
+        }        
 
 class NoteNote(orm.Model):
     """ Model name: NoteNote
@@ -178,7 +191,15 @@ class ProductProduct(orm.Model):
     _inherit = 'product.product'
     
     _columns = {
-        'note_ids': fields.one2many(
-            'note.note', 'product_id', 'Note system'), 
+        'note_ids': fields.one2many('note.note', 'product_id', 'Note system'), 
+        }
+
+class ResPartner(orm.Model):
+    """ Model name: ResPartner
+    """    
+    _inherit = 'res.partner'
+    
+    _columns = {
+        'note_ids': fields.one2many('note.note', 'partner_id', 'Note system'), 
         }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
