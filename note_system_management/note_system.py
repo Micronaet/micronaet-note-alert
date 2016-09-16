@@ -198,6 +198,7 @@ class NoteNote(orm.Model):
 
     _columns = {        
         'name': fields.char('Title', size=64, required=True),
+        'parent_id': fields.many2one('note.note', 'Parent'), 
         'type_id': fields.many2one('note.type', 'Type', required=True), 
         'create_uid': fields.many2one(
             'res.users', 'Created By', readonly=True),
