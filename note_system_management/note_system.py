@@ -199,7 +199,8 @@ class NoteNote(orm.Model):
     _columns = {        
         'name': fields.char('Title', size=64, required=True),
         'type_id': fields.many2one('note.type', 'Type', required=True), 
-        'create_uid': fields.many2one('res.users', 'Created By', readonly=True),
+        'create_uid': fields.many2one(
+            'res.users', 'Created By', readonly=True),
         'date': fields.datetime('Date', required=True),
         'deadline': fields.date('Deadline date'),
         'description': fields.text('Description'),
