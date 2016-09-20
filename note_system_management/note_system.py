@@ -311,39 +311,41 @@ class ProductProduct(orm.Model):
         
         # Search parent elements >> recursive
         product_proxy = self.browse(cr, uid, product_id, context=context)
-        
+
         if product_proxy.note_parent_id:
             # Recursive call:
-            return self.generate_note_matrix(
+            matrix = self.generate_note_matrix(
                 cr, uid, 
                 product_id=product_proxy.note_parent_id.id, 
                 partner_id=partner_id, 
                 order_id=order_id,
                 context=context,
                 )
-        else:
-            # Generate matrix:
+        else:        
+            # Generate matrix last recursion:
             matrix = self.get_matrix(cr, uid, context=context)
-            domain = [('product_id', '=', product_id)]
-            if partner_id:
-                domain = ['|'].expand(domain)
-                domain.append(('partner_id', '=', partner_id))
-                
-            if order_id:
-                domain = ['|'].expand(domain)
-                domain.append(('order_id', '=', order_id))
-                
-            note_ids = note_pool.search(cr, uid, domain, context=context)
             
-            # Populate matrix with current product:
-            # TODO manage sort:
-            for note in note_pool.browse(cr, uid, note_ids,
-                    context=context):
-                if note.overridable:
-                    matrix[note.type_id][0] = note
-                else:
-                    matrix[note.type_id][1].append(note)
-            return matrix
+        # Continue write current element:
+        domain = [('product_id', '=', product_id)]
+        if partner_id:
+            domain = ['|'].expand(domain)
+            domain.append(('partner_id', '=', partner_id))
+            
+        if order_id:
+            domain = ['|'].expand(domain)
+            domain.append(('order_id', '=', order_id))
+            
+        note_ids = note_pool.search(cr, uid, domain, context=context)
+        
+        # Populate matrix with current product:
+        # TODO manage sort:
+        for note in note_pool.browse(cr, uid, note_ids,
+                context=context):
+            if note.overridable:
+                matrix[note.type_id][0] = note
+            else:
+                matrix[note.type_id][1].append(note)
+        return matrix
 
     # Button utility:
     def open_button_note_event(self, cr, uid, ids, block='pr', context=None):
