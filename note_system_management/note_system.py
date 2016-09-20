@@ -354,11 +354,6 @@ class ProductProduct(orm.Model):
             pr-pa-or-de: product-partner-order-detail
             all: all note no filter
         '''
-        # TODO remove:    
-        matrix = self.generate_note_matrix(cr, uid, ids[0], context=context)
-        print matrix
-        # TODO remove:
-
         product_proxy = self.browse(cr, uid, ids, context=context)[0]
         note_parent_id = product_proxy.note_parent_id.id
         if note_parent_id:
