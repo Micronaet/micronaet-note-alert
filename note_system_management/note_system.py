@@ -198,8 +198,6 @@ class NoteNote(orm.Model):
 
     _columns = {        
         'name': fields.char('Title', size=64, required=True),
-        'parent_id': fields.many2one('product.product', 'Parent product',
-            help='Parent product for get detault note elements'), 
         'type_id': fields.many2one('note.type', 'Type', required=True), 
         'create_uid': fields.many2one(
             'res.users', 'Created By', readonly=True),
@@ -267,6 +265,8 @@ class ProductProduct(orm.Model):
     
     _columns = {
         'note_ids': fields.one2many('note.note', 'product_id', 'Note system'), 
+        'note_parent_id': fields.many2one('product.product', 'Parent product',
+            help='Parent product for get detault note elements'), 
         }
 
 class ResPartner(orm.Model):

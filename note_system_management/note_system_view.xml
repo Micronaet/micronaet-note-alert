@@ -151,7 +151,6 @@
             <field name="arch" type="xml">
                 <search string="Note search" version="7.0">        
                     <field name="name" />
-                    <field name="parent_id" />
                     <field name="date" />
                     <field name="deadline" />
                     <field name="product_id" />
@@ -167,7 +166,6 @@
                         <filter name="group_type" string="Type" context="{'group_by': 'type_id'}"/>
                         <filter name="group_deadline" string="Deadline" context="{'group_by': 'deadline'}"/>
                         <filter name="group_product" string="Product" context="{'group_by': 'product_id'}"/>
-                        <filter name="group_parent" string="Parent" context="{'group_by': 'parent_id'}"/>
                         <filter name="group_partner" string="Partner" context="{'group_by': 'partner_id'}"/>
                         <filter name="group_order" string="Order" context="{'group_by': 'order_id'}"/>
                         <filter name="line_partner" string="Line" context="{'group_by': 'line_id'}"/>
@@ -186,7 +184,6 @@
                             <field name="date" />
                             <field name="deadline" />
                             <field name="name" />
-                            <field name="parent_id" />
                             <field name="type_id"/>
                             <field name="image_id" />
                             <field name="create_uid" />
@@ -218,7 +215,6 @@
                     <field name="overridable" />
                     <field name="create_uid" />
                     <field name="name" />
-                    <field name="parent_id" />
                     <field name="date" />
                     <field name="deadline" />
                     <field name="description" nolabel="1" colspan="4" />
@@ -338,9 +334,12 @@
                             <field name="name" />
                             <field name="default_code" />
                             <notebook colspan="4">
-                                 <page string="Note system" editable="bottom" >
-                                     <field name="note_ids" colspan="4" context="{'product_embedded':True, 'default_product_id': active_id}"/>
-                                 </page>
+                                <group col="4" colspan="4">
+                                    <field name="note_parent_id" />
+                                    <page string="Note system" editable="bottom">
+                                        <field name="note_ids" colspan="4" context="{'product_embedded':True, 'default_product_id': active_id}"/>
+                                    </page>
+                                </group>     
                             </notebook>                            
                         </group>
                     </sheet>        
@@ -352,9 +351,10 @@
             <field name="model">product.product</field>
             <field name="priority" eval="60" />
             <field name="arch" type="xml">
-                <tree string="Product note" version="7.0">        
+                <tree string="Product note" version="7.0" colors="blue:note_parent_id==True">        
                     <field name="name" />
                     <field name="default_code" />                    
+                    <field name="note_parent_id" />
                     <button name="open_product_note_only" string="Only product note" type="object" icon="terp-accessories-archiver" />
                     <button name="open_product_partner_only" string="Only partner product note" type="object" icon="terp-personal" />
                     <button name="open_product_partner_order_only" string="Only product order note" type="object" icon="STOCK_DND" />
@@ -371,12 +371,13 @@
                 <search string="Cost method" version="7.0">        
                     <field name="name" />
                     <field name="default_code" />
+                    <field name="note_parent_id" />
                     
                     <!--<filter name="state_error" string="Cost error" domain="[('cost_error','=',True)]"/>
                     <filter name="state_warning" string="Cost warning" domain="[('cost_warning','=',True)]"/>-->
                     
                     <group expand="0" string="Group By...">
-                        <!--<filter name="group_duty" string="Duty category" context="{'group_by': 'duty_id'}"/>-->
+                        <filter name="group_parent" string="Parent product note" context="{'group_by': 'note_parent_id'}"/>
                     </group>                
                 </search>
             </field>
