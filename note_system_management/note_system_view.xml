@@ -333,13 +333,11 @@
                         <group col="4" colspan="4">
                             <field name="name" />
                             <field name="default_code" />
+                            <field name="note_parent_id" />
                             <notebook colspan="4">
-                                <group col="4" colspan="4">
-                                    <field name="note_parent_id" />
-                                    <page string="Note system" editable="bottom">
-                                        <field name="note_ids" colspan="4" context="{'product_embedded':True, 'default_product_id': active_id}"/>
-                                    </page>
-                                </group>     
+                                <page string="Note system" editable="bottom">
+                                    <field name="note_ids" colspan="4" context="{'product_embedded':True, 'default_product_id': active_id}"/>
+                                </page>
                             </notebook>                            
                         </group>
                     </sheet>        
