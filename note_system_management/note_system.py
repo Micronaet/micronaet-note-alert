@@ -55,8 +55,10 @@ class NoteType(orm.Model):
     """    
     _name = 'note.type'
     _description = 'Note type'
+    _order = 'sequence,name'
     
     _columns = {
+        'sequence': fields.integer('Sequence'),
         'name': fields.char(
             'Name', size=64, required=True),
         'note': fields.text('Note'),
@@ -263,8 +265,22 @@ class ProductProduct(orm.Model):
     """    
     _inherit = 'product.product'
 
-
+    # -------------------------------------------------------------------------
     # Utility:
+    # -------------------------------------------------------------------------
+    # Note system generator:
+    def generate_note_matrix(self, cr, uid, ids, partner_id=None, 
+            order_id=None, context=context):
+        ''' Generate matrix for note content in product passed 
+            If present also partner note content
+            And if present also for order_id passed
+        '''
+        # Generate matrix for arguments present:
+        matrix = {}
+        type_pool = self.pool.get('note.type')
+        
+        
+    # Button utility:
     def open_button_note_event(self, cr, uid, ids, block='pr', context=None):
         ''' Button utility for filter note, case:
             pr: product only

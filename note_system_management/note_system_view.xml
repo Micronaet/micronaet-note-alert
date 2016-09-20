@@ -108,9 +108,10 @@
                 <form string="Note type" version="7.0">        
                     <sheet>
                         <group col="4" colspan="4">
+                            <field name="sequence"/>
                             <field name="name"/>
-                            <field name="department_ids" widget="many2many_tags" />
-                                                        
+                            
+                            <field name="department_ids" widget="many2many_tags" />                                                        
                             <field name="linked_image" />
                             <newline/>
                             <field name="linked_object" attrs="{'required':[('linked_image','=',True)], 'invisible':[('linked_image','=',False)]}"/>
@@ -129,6 +130,7 @@
             <field name="model">note.type</field>
             <field name="arch" type="xml">
                 <tree string="Note type" version="7.0">        
+                    <field name="sequence"/>
                     <field name="name"/>                    
                     <field name="note" nolabel="1" colspan="4"/>
                 </tree>
@@ -335,8 +337,16 @@
                             <field name="default_code" />
                             <field name="note_parent_id" />
                             <notebook colspan="4">
+                                
                                 <page string="Note system" editable="bottom">
-                                    <field name="note_ids" colspan="4" context="{'product_embedded':True, 'default_product_id': active_id}"/>
+                                    <group colspan="4" col="6">
+                                        <button name="open_product_note_only" string="Only product note" type="object" icon="terp-accessories-archiver" />
+                                        <button name="open_product_partner_only" string="Only partner product note" type="object" icon="terp-personal" />
+                                        <button name="open_product_partner_order_only" string="Only product order note" type="object" icon="STOCK_DND" />
+                                        <button name="open_product_partner_order_detail_only" string="Only product detail note" type="object" icon="STOCK_DND_MULTIPLE" />
+                                        <button name="open_product_all" string="All product note" type="object" icon="STOCK_GO_FORWARD" />
+                                        <field name="note_ids" colspan="6" context="{'product_embedded':True, 'default_product_id': active_id}" nolabel="1"/>
+                                    </group>    
                                 </page>
                             </notebook>                            
                         </group>
