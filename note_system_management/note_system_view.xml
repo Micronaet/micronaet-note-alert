@@ -349,7 +349,7 @@
             <field name="model">product.product</field>
             <field name="priority" eval="60" />
             <field name="arch" type="xml">
-                <tree string="Product note" version="7.0" colors="blue:note_parent_id==True">        
+                <tree string="Product note" version="7.0" colors="blue:note_parent_id != False">        
                     <field name="name" />
                     <field name="default_code" />                    
                     <field name="note_parent_id" />

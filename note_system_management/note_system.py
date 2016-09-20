@@ -262,7 +262,112 @@ class ProductProduct(orm.Model):
     """ Model name: ProductProduct
     """    
     _inherit = 'product.product'
+
+
+    # Utility:
+    def open_button_note_event(self, cr, uid, ids, block='pr', context=None):
+        ''' Button utility for filter note, case:
+            pr: product only
+            pr-pa: product-partner
+            pr-pa-or: product-partner-order
+            pr-pa-or-de: product-partner-order-detail
+            all: all note no filter
+        '''
+        product_proxy = self.browse(cr, uid, ids, context=context)[0]
+        note_parent_id = product_proxy.note_parent_id.id
+        if note_parent_id:
+            domain = [('product_id', 'in', (ids[0], note_parent_id))]
+        else:    
+            domain = [('product_id', '=', ids[0])]
+            
+        if block == 'pr':
+            name = _('Product note')
+            domain.extend([                
+                ('partner_id', '=', False),
+                ('order_id', '=', False),
+                ('line_id', '=', False),
+                ])
+        elif block == 'pr-pa':
+            name = _('Product partner note')
+            domain.extend([                
+                ('partner_id', '!=', False),
+                ('order_id', '=', False),
+                ('line_id', '=', False),
+                ])
+        elif block == 'pr-pa-or':
+            name = _('Product order note')
+            domain.extend([                
+                ('order_id', '!=', False),
+                ('line_id', '=', False),
+                ])
+        elif block == 'pr-pa-or-de':
+            name = _('Product order detail')
+            domain.extend([                
+                ('line_id', '!=', False),
+                ])
+        elif block == 'all':
+            name = _('All note')
+        
+        return {
+            'type': 'ir.actions.act_window',
+            'name': name,
+            'view_type': 'form',
+            'view_mode': 'tree,form',
+            #'res_id': 1,
+            'res_model': 'note.note',
+            #'view_id': view_id, # False
+            'views': [(False, 'tree'), (False, 'form')],
+            'domain': domain,
+            'context': {'default_product_id': ids[0]},
+            'target': 'current', # 'new'
+            'nodestroy': False,
+            }
     
+    # -------------------------------------------------------------------------
+    # Button events:
+    # -------------------------------------------------------------------------
+    def open_product_note_only(self, cr, uid, ids, context=None):
+        ''' Button for filter note for: product
+        '''
+        return self.open_button_note_event(
+            cr, uid, ids, block='pr', context=context)
+        
+    #def open_partner_only(self, cr, uid, ids, context=None):
+    #    ''' Button for filter note for: partner
+    #    '''
+    #    return True
+        
+    def open_product_partner_only(self, cr, uid, ids, context=None):
+        ''' Button for filter note for: product-partner
+        '''
+        return self.open_button_note_event(
+            cr, uid, ids, block='pr-pa', context=context)
+        
+    #def open_order_only(self, cr, uid, ids, context=None):
+    #    ''' Button for filter note for: Order
+    #    '''
+    #    return True
+        
+    def open_product_partner_order_only(self, cr, uid, ids, context=None):
+        ''' Button for filter note for: Product-Partner-Order
+        '''
+        return self.open_button_note_event(
+            cr, uid, ids, block='pr-pa-or', context=context)
+        
+    def open_product_partner_order_detail_only(self, cr, uid, ids, 
+            context=None):
+        ''' Button for filter note for: Order detail
+        '''
+        return self.open_button_note_event(
+            cr, uid, ids, block='pr-pa-or-de', context=context)
+        
+        
+    def open_product_all(self, cr, uid, ids, context=None):
+        ''' Button for filter note for:
+        '''
+        return self.open_button_note_event(
+            cr, uid, ids, block='all', context=context)
+            
     _columns = {
         'note_ids': fields.one2many('note.note', 'product_id', 'Note system'), 
         'note_parent_id': fields.many2one('product.product', 'Parent product',
