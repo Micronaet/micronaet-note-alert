@@ -116,12 +116,11 @@
                             <newline/>
                             <field name="linked_object" attrs="{'required':[('linked_image','=',True)], 'invisible':[('linked_image','=',False)]}"/>
                             <field name="linked_image_field" attrs="{'required':[('linked_image','=',True)], 'invisible':[('linked_image','=',False)]}" />
-                            
-                            
+                                                        
                             <separator string="Note" colspan="4"/>
                             <field name="note" nolabel="1" colspan="4"/>
                         </group>
-                    </sheet>        
+                    </sheet>
                 </form>
             </field>
         </record>

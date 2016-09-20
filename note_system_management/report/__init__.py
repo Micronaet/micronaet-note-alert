@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 ###############################################################################
 #
 #    Copyright (C) 2001-2014 Micronaet SRL (<http://www.micronaet.it>).
@@ -16,31 +17,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
+from . import note_parser
 
-{
-    'name': 'Note system',
-    'version': '0.1',
-    'category': 'Note',
-    'description': '''        
-        Note system: manage note on custom elements (partner, product, order)
-        ''',
-    'author': 'Micronaet S.r.l. - Nicola Riolini',
-    'website': 'http://www.micronaet.it',
-    'license': 'AGPL-3',
-    'depends': [
-        'base',
-        'sale',
-        'product',
-        'company_base_folder',
-        ],
-    'init_xml': [],
-    'demo': [],
-    'data': [
-        'security/ir.model.access.csv',    
-        'note_system_view.xml',
-        'report/note_report.xml',
-        ],
-    'active': False,
-    'installable': True,
-    'auto_install': False,
-    }
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

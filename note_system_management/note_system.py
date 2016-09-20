@@ -268,18 +268,83 @@ class ProductProduct(orm.Model):
     # -------------------------------------------------------------------------
     # Utility:
     # -------------------------------------------------------------------------
-    # Note system generator:
-    def generate_note_matrix(self, cr, uid, ids, partner_id=None, 
-            order_id=None, context=context):
-        ''' Generate matrix for note content in product passed 
-            If present also partner note content
-            And if present also for order_id passed
+    # Generate matrix utility:
+    def get_note_priority(self, product_id, partner_id, order_id, line_id):
+        ''' Generate a level for priority depent on importance and presence of
+            data
+            0 = low 5 = max priority
+        '''
+        if product_id and not partner_id and not order_id and not line_id:
+            return 0 # low level
+        if partner_id and not order_id and not line_id:
+            return 1
+        if product_id and partner_id and not order_id and not line_id:
+            return 2
+        if order_id and not line_id:
+            return 3
+        if product_id and order_id and not line_id:
+            return 4            
+        if line_id:
+            return 5
+                        
+    def get_matrix(self, cr, uid, context=None):
+        ''' Generate matrix
         '''
         # Generate matrix for arguments present:
         matrix = {}
         type_pool = self.pool.get('note.type')
+        type_ids = type_pool.search(cr, uid, [], context=context)
+        for item in type_pool.browse(cr, uid, type_ids, context=context):
+            # create key=type, value: data for management (overrid., not over.)
+            matrix[item] = [False, []]
+        return matrix
+    
+    # Note system generator:
+    def generate_note_matrix(self, cr, uid, product_id, partner_id=None, 
+            order_id=None, context=None):
+        ''' Generate matrix for note content in product passed 
+            If present also partner note content
+            And if present also for order_id passed
+            matrix are for recursive calls
+        '''
+        note_pool = self.pool.get('note.note')
         
+        # Search parent elements >> recursive
+        product_proxy = self.browse(cr, uid, product_id, context=context)
         
+        if product_proxy.note_parent_id:
+            # Recursive call:
+            return self.generate_note_matrix(
+                cr, uid, 
+                product_id=product_proxy.note_parent_id.id, 
+                partner_id=partner_id, 
+                order_id=order_id,
+                context=context,
+                )
+        else:
+            # Generate matrix:
+            matrix = self.get_matrix(cr, uid, context=context)
+            domain = [('product_id', '=', product_id)]
+            if partner_id:
+                domain = ['|'].expand(domain)
+                domain.append(('partner_id', '=', partner_id))
+                
+            if order_id:
+                domain = ['|'].expand(domain)
+                domain.append(('order_id', '=', order_id))
+                
+            note_ids = note_pool.search(cr, uid, domain, context=context)
+            
+            # Populate matrix with current product:
+            # TODO manage sort:
+            for note in note_pool.browse(cr, uid, note_ids,
+                    context=context):
+                if note.overridable:
+                    matrix[note.type_id][0] = note
+                else:
+                    matrix[note.type_id][1].append(note)
+            return matrix
+
     # Button utility:
     def open_button_note_event(self, cr, uid, ids, block='pr', context=None):
         ''' Button utility for filter note, case:
@@ -289,6 +354,11 @@ class ProductProduct(orm.Model):
             pr-pa-or-de: product-partner-order-detail
             all: all note no filter
         '''
+        # TODO remove:    
+        matrix = self.generate_note_matrix(cr, uid, ids[0], context=context)
+        print matrix
+        # TODO remove:
+
         product_proxy = self.browse(cr, uid, ids, context=context)[0]
         note_parent_id = product_proxy.note_parent_id.id
         if note_parent_id:
