@@ -143,7 +143,7 @@ class NoteNote(orm.Model):
     """    
     _name = 'note.note'
     _description = 'Note'
-    _order = 'date'
+    _order = 'date' # change for pack parent?
     
     # Parameters:
     _extension = 'png'
@@ -198,7 +198,8 @@ class NoteNote(orm.Model):
 
     _columns = {        
         'name': fields.char('Title', size=64, required=True),
-        'parent_id': fields.many2one('note.note', 'Parent'), 
+        'parent_id': fields.many2one('product.product', 'Parent product',
+            help='Parent product for get detault note elements'), 
         'type_id': fields.many2one('note.type', 'Type', required=True), 
         'create_uid': fields.many2one(
             'res.users', 'Created By', readonly=True),

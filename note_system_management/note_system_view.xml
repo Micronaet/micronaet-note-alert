@@ -355,11 +355,11 @@
                 <tree string="Product note" version="7.0">        
                     <field name="name" />
                     <field name="default_code" />                    
-                    <button name="open_product_note_only" string="Only product note" type="object" />
-                    <button name="open_product_partner_only" string="Only partner product note" type="object" />
-                    <button name="open_product_partner_order_only" string="Only product order note" type="object" />
-                    <button name="open_product_partner_order_detail_only" string="Only product detail note" type="object" />
-                    <button name="open_product_all" string="All product note" type="object" />
+                    <button name="open_product_note_only" string="Only product note" type="object" icon="terp-accessories-archiver" />
+                    <button name="open_product_partner_only" string="Only partner product note" type="object" icon="terp-personal" />
+                    <button name="open_product_partner_order_only" string="Only product order note" type="object" icon="STOCK_DND" />
+                    <button name="open_product_partner_order_detail_only" string="Only product detail note" type="object" icon="STOCK_DND_MULTIPLE" />
+                    <button name="open_product_all" string="All product note" type="object" icon="STOCK_GO_FORWARD" />
                 </tree>
             </field>
         </record>
