@@ -326,6 +326,75 @@
             </field>
         </record>
 
+        <!--Extra product.product view-->
+        <record model="ir.ui.view" id="view_product_product_note_form">
+            <field name="name">product.product.note.form</field>
+            <field name="model">product.product</field>
+            <field name="priority" eval="60" />
+            <field name="arch" type="xml">
+                <form string="Note for product" version="7.0">        
+                    <sheet>
+                        <group col="4" colspan="4">
+                            <field name="name" />
+                            <field name="default_code" />
+                            <notebook colspan="4">
+                                <page string="Note systen">
+                                    <group col="4" colspan="4">
+                                        <!--<field name="transport_ids" nolabel="1">
+                                            <tree string="Transport" editable="bottom">
+                                                <field name="transport_id" />
+                                                <field name="calc_note" />
+                                                <field name="quantity" />
+                                            </tree>                                            
+                                        </field>-->
+                                    </group>
+                                </page>    
+                            </notebook>                            
+                        </group>
+                    </sheet>        
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_product_product_note_tree">
+            <field name="name">product.product.note.tree</field>
+            <field name="model">product.product</field>
+            <field name="priority" eval="60" />
+            <field name="arch" type="xml">
+                <tree string="Product note" version="7.0">        
+                    <field name="name" />
+                    <field name="default_code" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_product_product_note_search">
+            <field name="name">product.product.note.search</field>
+            <field name="model">product.product</field>
+            <field name="priority" eval="60" />
+            <field name="arch" type="xml">
+                <search string="Cost method" version="7.0">        
+                    <field name="name" />
+                    <field name="default_code" />
+                    
+                    <!--<filter name="state_error" string="Cost error" domain="[('cost_error','=',True)]"/>
+                    <filter name="state_warning" string="Cost warning" domain="[('cost_warning','=',True)]"/>-->
+                    
+                    <group expand="0" string="Group By...">
+                        <!--<filter name="group_duty" string="Duty category" context="{'group_by': 'duty_id'}"/>-->
+                    </group>                
+                </search>
+            </field>
+        </record>   
+        <record model="ir.actions.act_window" id="action_product_product_note_tree">
+            <field name="name">Product note</field>
+            <field name="res_model">product.product</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_product_product_note_tree"/>
+            <field name="search_view_id" ref="view_product_product_note_search"/>
+            <field name="context">{'form_view_ref': 'note_system_management.view_product_product_note_form'}</field>
+            <field name="domain">[]</field>
+        </record>
+
         <!--base.menu_sales-->
         <menuitem 
             parent="base.menu_base_partner"
@@ -341,6 +410,23 @@
                 action="action_note_note"
                 sequence="10"
                 />
+            
+            <menuitem    
+                parent="menu_note_system_management_root"
+                name="Note object"
+                id="menu_note_system_block_root" 
+                sequence="20"
+                />
+                <menuitem 
+                    parent="menu_note_system_block_root" 
+                    name="Product"
+                    id="menu_note_system_block_product" 
+                    action="action_product_product_note_tree"
+                    sequence="10"
+                    />
+                <!--TODO-->    
+                
+                
             <menuitem 
                 parent="menu_note_system_management_root"
                 name="Configuration" 
