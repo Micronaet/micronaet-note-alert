@@ -296,7 +296,7 @@ class ProductProduct(orm.Model):
         type_ids = type_pool.search(cr, uid, [], context=context)
         for item in type_pool.browse(cr, uid, type_ids, context=context):
             # create key=type, value: data for management (overrid., not over.)
-            matrix[item] = [False, []]
+            matrix[item] = [False, ]
         return matrix
     
     # Note system generator:
@@ -339,12 +339,11 @@ class ProductProduct(orm.Model):
         
         # Populate matrix with current product:
         # TODO manage sort:
-        for note in note_pool.browse(cr, uid, note_ids,
-                context=context):
+        for note in note_pool.browse(cr, uid, note_ids, context=context):
             if note.overridable:
                 matrix[note.type_id][0] = note
             else:
-                matrix[note.type_id][1].append(note)
+                matrix[note.type_id].append(note)
         return matrix
 
     # Button utility:
