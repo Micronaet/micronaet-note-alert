@@ -216,6 +216,8 @@ class NoteNote(orm.Model):
         # Linked object for part.
         'product_id': fields.many2one('product.product', 'Product'), 
         'partner_id': fields.many2one('res.partner', 'Partner'), 
+        'address_id': fields.many2one('res.partner', 'Partner address'), 
+        #    domain=[('is_address', '=', True)]),
         'order_id': fields.many2one('sale.order', 'Order'),
         'line_id': fields.many2one('sale.order.line', 'Order line'),
         }
@@ -463,6 +465,8 @@ class ResPartner(orm.Model):
     
     _columns = {
         'note_ids': fields.one2many('note.note', 'partner_id', 'Note system'), 
+        'address_note_ids': fields.one2many('note.note', 'address_id', 
+            'Note system (address)'), 
         }
 
 class SaleOrder(orm.Model):

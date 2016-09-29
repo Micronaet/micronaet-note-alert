@@ -156,6 +156,7 @@
                     <field name="deadline" />
                     <field name="product_id" />
                     <field name="partner_id" />
+                    <field name="address_id" domain="[('is_address', '=', True)]"/>
                     <field name="type_id" />
                     <field name="order_id" />
                     <field name="line_id" />
@@ -168,6 +169,7 @@
                         <filter name="group_deadline" string="Deadline" context="{'group_by': 'deadline'}"/>
                         <filter name="group_product" string="Product" context="{'group_by': 'product_id'}"/>
                         <filter name="group_partner" string="Partner" context="{'group_by': 'partner_id'}"/>
+                        <filter name="group_address" string="Address" context="{'group_by': 'address_id'}"/>
                         <filter name="group_order" string="Order" context="{'group_by': 'order_id'}"/>
                         <filter name="line_partner" string="Line" context="{'group_by': 'line_id'}"/>
                         <filter name="group_overridable" string="Overridable" context="{'group_by': 'overridable'}"/>
@@ -191,10 +193,10 @@
                             <group colspan="2" col="2">
                                 <separator string="Description" colspan="4"/>
                                 <field name="description" nolabel="1" colspan="4"/>
-
                                 <field name="overridable"/>
                                 <field name="product_id" invisible="context.get('product_embedded',False)" />
-                                <field name="partner_id" invisible="context.get('partner_embedded',False)" />
+                                <field name="partner_id" /> <!--invisible="context.get('partner_embedded',False)"-->
+                                <field name="address_id" attrs="{'invisible':[('partner_id','=',False)]}" domain="[('is_address','=',True),('parent_id','=',partner_id)]" /> <!--invisible="context.get('address_embedded',False)"-->
                                 <field name="order_id" invisible="context.get('order_embedded',False)" attrs="{'invisible':[('partner_id','=',False)]}" domain="[('partner_id', '=', partner_id)]"/>
                                 <field name="line_id" invisible="context.get('line_embedded',False)" 
                                     attrs="{'invisible':[('order_id','=',False)]}" 
@@ -222,7 +224,8 @@
                     <field name="type_id" />
                     
                     <field name="product_id" invisible="context.get('product_embedded',False)"/>
-                    <field name="partner_id" invisible="context.get('partner_embedded',False)"/>
+                    <field name="partner_id" /> <!--invisible="context.get('partner_embedded',False)"-->
+                    <field name="address_id" attrs="{'invisible':[('partner_id','=',False)]}" domain="[('is_address','=',True),('parent_id','=',partner_id)]" /> <!--invisible="context.get('address_embedded',False)"-->
                     <field name="order_id" invisible="context.get('order_embedded',False)"/>
                     <field name="line_id" invisible="context.get('line_embedded',False)"/>
                 </tree>
@@ -304,7 +307,11 @@
             <field name="arch" type="xml">
                  <xpath expr="//notebook/page[2]" position="after">
                      <page string="Note system" editable="bottom" >
-                         <field name="note_ids" colspan="4" context="{'partner_embedded':True, 'default_partner_id': active_id}" />
+                         <separator string="Partner note:" colspan="4" attrs="{'invisible': [('is_address','=',True)]}"/>
+                         <field name="note_ids" colspan="4" context="{'partner_embedded':True, 'default_partner_id': active_id}" attrs="{'invisible': [('is_address','=',True)]}"/>
+                         
+                         <separator string="Partner address note:" colspan="4" attrs="{'invisible': [('is_address','=',False)]}"/>
+                         <field name="address_note_ids" colspan="4" context="{'partner_embedded':True, 'default_address_id': active_id, 'default_partner_id': parent_id}" attrs="{'invisible': [('is_address','=',False)]}"/>
                      </page>
                  </xpath>
             </field>

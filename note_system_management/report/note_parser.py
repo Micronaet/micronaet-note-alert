@@ -42,8 +42,9 @@ class Parser(report_sxw.rml_parse):
         super(Parser, self).__init__(cr, uid, name, context)
         self.localcontext.update({
             'get_object': self.get_object,
+            #'is_first_element': self.is_first_element, 
             })
-            
+      
     def get_object(self, objects, data=None):
         ''' Check wizard data filters
         '''
