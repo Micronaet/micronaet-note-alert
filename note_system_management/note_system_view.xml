@@ -324,7 +324,7 @@
             <field name="arch" type="xml">
                  <xpath expr="//notebook/page[2]" position="after">
                      <page string="Note system" editable="bottom" >
-                         <field name="note_ids" colspan="4" context="{'default_partner_id': partner_id, 'default_order_id': active_id, 'order_embedded':True}" />
+                         <field name="note_ids" colspan="4" context="{'default_partner_id': partner_id, 'default_address_id': destination_partner_id, 'default_order_id': active_id, 'order_embedded':True}" />
                      </page>
                  </xpath>
             </field>
