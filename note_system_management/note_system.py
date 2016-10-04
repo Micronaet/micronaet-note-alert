@@ -220,11 +220,19 @@ class NoteNote(orm.Model):
         #    domain=[('is_address', '=', True)]),
         'order_id': fields.many2one('sale.order', 'Order'),
         'line_id': fields.many2one('sale.order.line', 'Order line'),
+        
+        'layout': fields.selection([
+            ('image', 'Image only'),
+            ('image_text', 'Image and title'),
+            ('complete', 'Image, title and text'),
+            #('label', 'Label'), # TODO manage label mode
+            ], 'layout', readonly=False, )
         }
          
     _defaults = {
         'date': lambda *x: datetime.now().strftime(
             DEFAULT_SERVER_DATETIME_FORMAT),
+        'layout': lambda *x: 'complete',
         }    
 
 class NoteProductReport(orm.Model):

@@ -152,6 +152,7 @@
             <field name="arch" type="xml">
                 <search string="Note search" version="7.0">        
                     <field name="name" />
+                    <field name="layout" />
                     <field name="date" />
                     <field name="deadline" />
                     <field name="product_id" />
@@ -165,6 +166,7 @@
                     <filter name="overridable_no" string="Not overridable" domain="[('overridable','=',False)]"/>
                     <group expand="0" string="Group By...">
                         <filter name="group_date" string="Date" context="{'group_by': 'date'}"/>
+                        <filter name="group_layout" string="Layout" context="{'group_by': 'layout'}"/>
                         <filter name="group_type" string="Type" context="{'group_by': 'type_id'}"/>
                         <filter name="group_deadline" string="Deadline" context="{'group_by': 'deadline'}"/>
                         <filter name="group_product" string="Product" context="{'group_by': 'product_id'}"/>
@@ -186,10 +188,15 @@
                         <group col="4" colspan="4">
                             <field name="date" />
                             <field name="deadline" />
+
                             <field name="name" />
+                            <field name="layout" />
+
                             <field name="type_id"/>
                             <field name="image_id" />
+
                             <field name="create_uid" />
+                            
                             <group colspan="2" col="2">
                                 <separator string="Description" colspan="4"/>
                                 <field name="description" nolabel="1" colspan="4"/>
@@ -218,6 +225,7 @@
                     <field name="overridable" />
                     <field name="create_uid" />
                     <field name="name" />
+                    <field name="layout" />
                     <field name="date" />
                     <field name="deadline" />
                     <field name="description" nolabel="1" colspan="4" />
