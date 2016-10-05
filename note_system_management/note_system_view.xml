@@ -196,6 +196,7 @@
                             <field name="image_id" />
 
                             <field name="create_uid" />
+                            <newline/>
                             
                             <group colspan="2" col="2">
                                 <separator string="Description" colspan="4"/>
@@ -346,12 +347,12 @@
             <field name="arch" type="xml">
                 <form string="Note for product" version="7.0">        
                     <sheet>
-                        <group col="4" colspan="4">
-                            <field name="name" />
+                        <group col="5" colspan="4">
+                            <field name="name" colspan="3"/>
                             <field name="default_code" />
-                            <field name="note_parent_id" />
-                            <notebook colspan="4">
-                                
+                            <field name="note_parent_id" context="{'form_view_ref': 'note_system_management.view_product_product_note_form'}"/>
+                            <button name="assign_parent_note" string="Find it" type="object" colspan="1"/>
+                            <notebook colspan="5">                                
                                 <page string="Note system" editable="bottom">
                                     <group colspan="4" col="6">
                                         <button name="open_product_note_only" string="Only product note" type="object" icon="terp-accessories-archiver" />

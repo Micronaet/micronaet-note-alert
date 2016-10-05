@@ -39,6 +39,7 @@
         'security/ir.model.access.csv',    
         'note_system_view.xml',
         'report/note_report.xml',
+        'data/config_data.xml',
         ],
     'active': False,
     'installable': True,

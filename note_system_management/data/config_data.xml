@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<openerp>
+    <data> 
+        <record model="ir.config_parameter" id="parameter_default_product_parent_note">
+            <field name="key">product.default.product.parent.note</field>
+            <field name="value">[8,6,3]</field>
+        </record>
+    </data>
+</openerp>
+

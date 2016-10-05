@@ -150,7 +150,7 @@ class NoteNote(orm.Model):
     # Parameters:
     _extension = 'png'
     _root_path = 'note_image'
-
+    
     # -------------------------------------------------------------------------
     # Functional field:
     # -------------------------------------------------------------------------
@@ -224,9 +224,9 @@ class NoteNote(orm.Model):
         'layout': fields.selection([
             ('image', 'Image only'),
             ('image_text', 'Image and title'),
-            ('complete', 'Image, title and text'),
+            ('complete', 'Complete'),
             #('label', 'Label'), # TODO manage label mode
-            ], 'layout', readonly=False, )
+            ], 'Layout', readonly=False, )
         }
          
     _defaults = {
@@ -277,6 +277,24 @@ class ProductProduct(orm.Model):
 
     # -------------------------------------------------------------------------
     # Utility:
+    # -------------------------------------------------------------------------
+    # Parent management:
+    def get_config_parameter_note_list(self, cr, uid, context=None):
+        ''' Read parameter: 
+        '''    
+        key = 'product.default.product.parent.note'
+        config_pool = self.pool.get('ir.config_parameter')
+        config_ids = config_pool.search(cr, uid, [
+            ('key', '=', key)], context=context)
+        if not config_ids:
+            _logger.warning('Parameter not found: %s' % key)
+            return []
+        config_proxy = config_pool.browse(
+            cr, uid, config_ids, context=context)[0]
+        return eval(config_proxy.value)    
+    
+    # -------------------------------------------------------------------------
+    #                               MATRIX
     # -------------------------------------------------------------------------
     # Generate matrix utility:
     def get_note_priority(self, product_id, partner_id, order_id, line_id):
@@ -356,7 +374,49 @@ class ProductProduct(orm.Model):
                 matrix[note.type_id].append(note)
         return matrix
 
-    # Button utility:
+    # -------------------------------------------------------------------------
+    # Button:
+    # -------------------------------------------------------------------------
+    def assign_parent_note(self, cr, uid, ids, context=None):
+        ''' Assign note depend on code format
+        '''
+        product_code_split = self.get_config_parameter_note_list(
+            cr, uid, context=context)
+        if not product_code_split:
+            raise osv.except_osv(
+                _('Error'), 
+                _('Setup config paremeter not found!'))
+            
+        product_proxy = self.browse(cr, uid, ids, context=context)[0]
+        default_code = product_proxy.default_code
+        if not default_code:
+            raise osv.except_osv(
+                _('Error'), 
+                _('No default code in product!'))
+
+        product_ids = False        
+        for to in product_code_split:  
+            if len(default_code) <= to:
+                continue
+            partial = default_code[0:to].strip()
+            product_ids = self.search(cr, uid, [
+                ('default_code', '=', partial),
+                ], context=context)
+            if product_ids:
+                break
+                
+        if not product_ids:
+            raise osv.except_osv(
+                _('Error'), 
+                _('No parent product found!'))
+                
+        if len(product_ids) > 1:
+            _logger.error('Found more parent product code!')
+                        
+        return self.write(cr, uid, ids, {
+            'note_parent_id': product_ids[0],
+            }, context=context)        
+        
     def open_button_note_event(self, cr, uid, ids, block='pr', context=None):
         ''' Button utility for filter note, case:
             pr: product only
