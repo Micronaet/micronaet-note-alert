@@ -297,43 +297,50 @@ class ProductProduct(orm.Model):
     #                               MATRIX
     # -------------------------------------------------------------------------
     # Generate matrix utility:
-    def get_note_priority(self, product_id, partner_id, address_id, order_id, 
-            line_id):
+    def get_note_priority(self, product_id=False, partner_id=False, 
+            address_id=False, order_id=False, line_id=False):
         ''' Generate a level for priority depent on importance and presence of
             data
             0 = low 7 = max priority
         '''
         # Only product:
-        if product_id and not partner_id and not address_id and not order_id and not line_id:
+        if product_id and not partner_id and not address_id and not order_id \
+                and not line_id:
             return 0 # low level
             
         # Only partner:    
-        if not product_id and partner_id and not address_id and not order_id and not line_id:
+        if not product_id and partner_id and not address_id and not order_id \
+                and not line_id:
             return 1
         
         # Product-Partner:    
-        if product_id and partner_id and not address_id and not order_id and not line_id:
+        if product_id and partner_id and not address_id and not order_id \
+                and not line_id:
             return 2
         
         # Address:    
-        if not product_id and partner_id and address_id and not order_id and not line_id:
+        if not product_id and partner_id and address_id and not order_id \
+                and not line_id:
             return 3
         
         # Product-Address    
-        if product_id and partner_id and address_id and not order_id and not line_id:
+        if product_id and partner_id and address_id and not order_id \
+                and not line_id:
             return 4
         
         # Order:    
-        if not product_id and partner_id and address_id and order_id and not line_id:
+        if not product_id and partner_id and address_id and order_id \
+                and not line_id:
             return 5
         
         # Product-Order:
-        if product_id and partner_id and address_id and order_id and not line_id:
+        if product_id and partner_id and address_id and order_id \
+                and not line_id:
             return 6
         
         # Order line:    
         if product_id and partner_id and address_id and order_id and line_id:
-            return 7
+            return 7 # high level
         # TODO raise error!
             
                         
