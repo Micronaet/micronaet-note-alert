@@ -1,0 +1,498 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* note_system_management
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-07-27 16:28+0000\n"
+"PO-Revision-Date: 2017-08-06 11:24+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: it\n"
+"X-Generator: Poedit 1.6.10\n"
+
+#. module: note_system_management
+#: view:note.note:note_system_management.view_note_note_search
+msgid "Address"
+msgstr "Indirizzo"
+
+#. module: note_system_management
+#: code:addons/note_system_management/note_system.py:490
+#, python-format
+msgid "All note"
+msgstr "Tutte le note"
+
+#. module: note_system_management
+#: view:product.product:note_system_management.view_product_product_note_form
+#: view:product.product:note_system_management.view_product_product_note_tree
+msgid "All product note"
+msgstr "Tutte le note prodotto"
+
+#. module: note_system_management
+#: selection:note.note,layout:0
+msgid "Complete"
+msgstr "Completo"
+
+#. module: note_system_management
+#: model:ir.ui.menu,name:note_system_management.menu_note_system_management_configuration
+msgid "Configuration"
+msgstr "Configurazione"
+
+#. module: note_system_management
+#: view:product.product:note_system_management.view_product_product_note_search
+msgid "Cost method"
+msgstr "Metodo del costo"
+
+#. module: note_system_management
+#: field:note.note,create_uid:0
+msgid "Created By"
+msgstr "Creato da"
+
+#. module: note_system_management
+#: field:note.department,create_uid:0 field:note.image,create_uid:0
+#: field:note.product.report,create_uid:0
+#: field:note.product.report.line,create_uid:0 field:note.type,create_uid:0
+msgid "Created by"
+msgstr "Creato da"
+
+#. module: note_system_management
+#: field:note.department,create_date:0 field:note.image,create_date:0
+#: field:note.note,create_date:0 field:note.product.report,create_date:0
+#: field:note.product.report.line,create_date:0 field:note.type,create_date:0
+msgid "Created on"
+msgstr "Creato il"
+
+#. module: note_system_management
+#: view:note.note:note_system_management.view_note_note_search
+#: field:note.note,date:0
+msgid "Date"
+msgstr "Data"
+
+#. module: note_system_management
+#: view:note.note:note_system_management.view_note_note_search
+msgid "Deadline"
+msgstr "Scadenza"
+
+#. module: note_system_management
+#: field:note.note,deadline:0
+msgid "Deadline date"
+msgstr "Data scadenza"
+
+#. module: note_system_management
+#: model:ir.ui.menu,name:note_system_management.menu_note_system_management_image
+msgid "Default image"
+msgstr "Immagine predefinita"
+
+#. module: note_system_management
+#: model:ir.ui.menu,name:note_system_management.menu_note_system_management_department
+#: field:note.department,name:0 field:note.type,department_ids:0
+msgid "Department"
+msgstr "Dipartimento"
+
+#. module: note_system_management
+#: view:note.note:note_system_management.view_note_note_form
+#: field:note.note,description:0
+msgid "Description"
+msgstr "Descrizione"
+
+#. module: note_system_management
+#: view:note.product.report:note_system_management.view_note_product_report_form
+#: field:note.product.report,line_ids:0
+msgid "Detail"
+msgstr "Dettaglio"
+
+#. module: note_system_management
+#: code:addons/note_system_management/note_system.py:416
+#: code:addons/note_system_management/note_system.py:423
+#: code:addons/note_system_management/note_system.py:439
+#, python-format
+msgid "Error"
+msgstr "Errore"
+
+#. module: note_system_management
+#: view:product.product:note_system_management.view_product_product_note_form
+msgid "Find it"
+msgstr "Trova"
+
+#. module: note_system_management
+#: help:note.type,linked_object:0
+msgid "For show image linked to object"
+msgstr "Per mostra immagine collegata all'oggetto"
+
+#. module: note_system_management
+#: view:note.image:note_system_management.view_note_image_search
+#: view:note.note:note_system_management.view_note_note_search
+#: view:product.product:note_system_management.view_product_product_note_search
+msgid "Group By..."
+msgstr "Raggruppa per..."
+
+#. module: note_system_management
+#: field:note.department,id:0 field:note.image,id:0 field:note.note,id:0
+#: field:note.product.report,id:0 field:note.product.report.line,id:0
+#: field:note.type,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: note_system_management
+#: help:note.type,linked_image:0
+msgid "If checked use image from linked module, else store file"
+msgstr ""
+"Se spuntato usa l'immagine dal modulo collegato, altrimenti file depositato"
+
+#. module: note_system_management
+#: field:note.image,image:0 field:note.image,name:0 field:note.note,image:0
+msgid "Image"
+msgstr "Immagine"
+
+#. module: note_system_management
+#: selection:note.note,layout:0
+msgid "Image and title"
+msgstr "Immagine e titolo"
+
+#. module: note_system_management
+#: field:note.type,linked_image_field:0
+msgid "Image field name"
+msgstr "Immagine nome campo"
+
+#. module: note_system_management
+#: help:note.type,linked_image_field:0
+msgid "Image field name of linked object"
+msgstr "Immagine nome campo dell'oggetto collegato"
+
+#. module: note_system_management
+#: selection:note.note,layout:0
+msgid "Image only"
+msgstr "Solo immagine"
+
+#. module: note_system_management
+#: field:note.department,write_uid:0 field:note.image,write_uid:0
+#: field:note.note,write_uid:0 field:note.product.report,write_uid:0
+#: field:note.product.report.line,write_uid:0 field:note.type,write_uid:0
+msgid "Last Updated by"
+msgstr "Aggiornato da"
+
+#. module: note_system_management
+#: field:note.department,write_date:0 field:note.image,write_date:0
+#: field:note.note,write_date:0 field:note.product.report,write_date:0
+#: field:note.product.report.line,write_date:0 field:note.type,write_date:0
+msgid "Last Updated on"
+msgstr "Aggiornato il"
+
+#. module: note_system_management
+#: view:note.note:note_system_management.view_note_note_search
+#: field:note.note,layout:0
+msgid "Layout"
+msgstr "Layout"
+
+#. module: note_system_management
+#: view:note.note:note_system_management.view_note_note_search
+#: view:note.product.report:note_system_management.view_note_product_report_form
+msgid "Line"
+msgstr "Riga"
+
+#. module: note_system_management
+#: field:note.type,linked_image:0
+msgid "Linked image"
+msgstr "Immagine collegata"
+
+#. module: note_system_management
+#: field:note.type,linked_object:0
+msgid "Linked object"
+msgstr "Oggetti collegati"
+
+#. module: note_system_management
+#: field:note.type,name:0
+msgid "Name"
+msgstr "Nome"
+
+#. module: note_system_management
+#: code:addons/note_system_management/note_system.py:424
+#, python-format
+msgid "No default code in product!"
+msgstr "Nessun codice nel prodotto!"
+
+#. module: note_system_management
+#: code:addons/note_system_management/note_system.py:440
+#, python-format
+msgid "No parent product found!"
+msgstr "Nessun prodotto padre trovato!"
+
+#. module: note_system_management
+#: view:note.note:note_system_management.view_note_note_search
+msgid "Not overridable"
+msgstr "Non sovrascrivibile"
+
+#. module: note_system_management
+#: model:ir.model,name:note_system_management.model_note_note
+#: model:ir.ui.menu,name:note_system_management.menu_note_note
+#: view:note.department:note_system_management.view_note_department_form
+#: field:note.department,note:0
+#: view:note.image:note_system_management.view_note_image_form
+#: field:note.image,note:0 field:note.product.report,note:0
+#: view:note.type:note_system_management.view_note_type_form
+#: field:note.type,note:0
+msgid "Note"
+msgstr "Nota"
+
+#. module: note_system_management
+#: model:ir.actions.act_window,name:note_system_management.action_note_department
+#: model:ir.model,name:note_system_management.model_note_department
+#: view:note.department:note_system_management.view_note_department_form
+#: view:note.department:note_system_management.view_note_department_tree
+msgid "Note department"
+msgstr "Nota dipartimento"
+
+#. module: note_system_management
+#: view:product.product:note_system_management.view_product_product_note_form
+msgid "Note for product"
+msgstr "Nota per prodotto"
+
+#. module: note_system_management
+#: model:ir.actions.act_window,name:note_system_management.action_note_image
+#: model:ir.model,name:note_system_management.model_note_image
+#: view:note.image:note_system_management.view_note_image_form
+#: view:note.image:note_system_management.view_note_image_tree
+msgid "Note image"
+msgstr "Immagine note"
+
+#. module: note_system_management
+#: view:note.image:note_system_management.view_note_image_search
+msgid "Note image search"
+msgstr "Ricerca nota immagine"
+
+#. module: note_system_management
+#: model:ir.ui.menu,name:note_system_management.menu_note_system_management_root
+msgid "Note management"
+msgstr "Gestione note"
+
+#. module: note_system_management
+#: model:ir.actions.act_window,name:note_system_management.action_note_note
+#: view:note.note:note_system_management.view_note_note_form
+#: view:note.note:note_system_management.view_note_note_tree
+msgid "Note note"
+msgstr "Note"
+
+#. module: note_system_management
+#: model:ir.ui.menu,name:note_system_management.menu_note_system_block_root
+msgid "Note object"
+msgstr "Oggetto note"
+
+#. module: note_system_management
+#: model:ir.model,name:note_system_management.model_note_product_report
+#: model:ir.model,name:note_system_management.model_note_product_report_line
+#: view:note.product.report:note_system_management.view_note_product_report_form
+#: view:note.product.report:note_system_management.view_note_product_report_tree
+msgid "Note product report"
+msgstr "Stampa note prodotto"
+
+#. module: note_system_management
+#: model:ir.actions.act_window,name:note_system_management.action_note_product_report
+msgid "Note report"
+msgstr "Stampa note"
+
+#. module: note_system_management
+#: view:note.note:note_system_management.view_note_note_search
+msgid "Note search"
+msgstr "Ricerca note"
+
+#. module: note_system_management
+#: view:product.product:note_system_management.view_product_product_form
+#: view:product.product:note_system_management.view_product_product_note_form
+#: field:product.product,note_ids:0
+#: view:res.partner:note_system_management.view_partner_note_system_form
+#: field:res.partner,note_ids:0
+#: view:sale.order:note_system_management.view_sale_order_note_system_inherit_form
+#: field:sale.order,note_ids:0
+msgid "Note system"
+msgstr "Sistema note"
+
+#. module: note_system_management
+#: field:res.partner,address_note_ids:0
+msgid "Note system (address)"
+msgstr "Sistema note (indirizzo)"
+
+#. module: note_system_management
+#: model:ir.actions.act_window,name:note_system_management.action_note_type
+#: model:ir.model,name:note_system_management.model_note_type
+#: view:note.type:note_system_management.view_note_type_form
+#: view:note.type:note_system_management.view_note_type_tree
+msgid "Note type"
+msgstr "Tipo nota"
+
+#. module: note_system_management
+#: view:product.product:note_system_management.view_product_product_note_form
+#: view:product.product:note_system_management.view_product_product_note_tree
+msgid "Only partner product note"
+msgstr "Solo nota partner prodotto"
+
+#. module: note_system_management
+#: view:product.product:note_system_management.view_product_product_note_form
+#: view:product.product:note_system_management.view_product_product_note_tree
+msgid "Only product detail note"
+msgstr "Solo note dettaglio prodotto"
+
+#. module: note_system_management
+#: view:product.product:note_system_management.view_product_product_note_form
+#: view:product.product:note_system_management.view_product_product_note_tree
+msgid "Only product note"
+msgstr "Solo note prodotto"
+
+#. module: note_system_management
+#: view:product.product:note_system_management.view_product_product_note_form
+#: view:product.product:note_system_management.view_product_product_note_tree
+msgid "Only product order note"
+msgstr "Solo note ordine prodotto"
+
+#. module: note_system_management
+#: view:note.note:note_system_management.view_note_note_search
+#: field:note.note,order_id:0
+msgid "Order"
+msgstr "Ordine"
+
+#. module: note_system_management
+#: field:note.note,line_id:0
+msgid "Order line"
+msgstr "Righe ordine"
+
+#. module: note_system_management
+#: view:note.note:note_system_management.view_note_note_search
+#: field:note.note,overridable:0
+msgid "Overridable"
+msgstr "Sovrascrivibile"
+
+#. module: note_system_management
+#: field:product.product,note_parent_id:0
+msgid "Parent product"
+msgstr "Prodotto padre"
+
+#. module: note_system_management
+#: help:product.product,note_parent_id:0
+msgid "Parent product for get detault note elements"
+msgstr "Prodotto padre per avere note predefinite"
+
+#. module: note_system_management
+#: view:product.product:note_system_management.view_product_product_note_search
+msgid "Parent product note"
+msgstr "Note prodotto padre"
+
+#. module: note_system_management
+#: model:ir.model,name:note_system_management.model_res_partner
+#: view:note.note:note_system_management.view_note_note_search
+#: field:note.note,partner_id:0 selection:note.type,linked_object:0
+msgid "Partner"
+msgstr "Partner"
+
+#. module: note_system_management
+#: field:note.note,address_id:0
+msgid "Partner address"
+msgstr "Indirizzo partner"
+
+#. module: note_system_management
+#: view:res.partner:note_system_management.view_partner_note_system_form
+msgid "Partner address note:"
+msgstr "Nota indirizzo patner:"
+
+#. module: note_system_management
+#: view:res.partner:note_system_management.view_partner_note_system_form
+msgid "Partner note:"
+msgstr "Note partner:"
+
+#. module: note_system_management
+#: model:ir.model,name:note_system_management.model_product_product
+#: model:ir.ui.menu,name:note_system_management.menu_note_system_block_product
+#: view:note.note:note_system_management.view_note_note_search
+#: field:note.note,product_id:0 selection:note.type,linked_object:0
+msgid "Product"
+msgstr "Prodotto"
+
+#. module: note_system_management
+#: code:addons/note_system_management/note_system.py:465
+#: model:ir.actions.act_window,name:note_system_management.action_product_product_note_tree
+#: view:product.product:note_system_management.view_product_product_note_tree
+#, python-format
+msgid "Product note"
+msgstr "Nota prodotto"
+
+#. module: note_system_management
+#: model:ir.actions.report.xml,name:note_system_management.aeroo_product_note_report_id
+msgid "Product note report"
+msgstr "Stampa note prodotto"
+
+#. module: note_system_management
+#: code:addons/note_system_management/note_system.py:485
+#, python-format
+msgid "Product order detail"
+msgstr "Dettaglio ordine prodotto"
+
+#. module: note_system_management
+#: code:addons/note_system_management/note_system.py:479
+#, python-format
+msgid "Product order note"
+msgstr "Note ordine prodotto"
+
+#. module: note_system_management
+#: code:addons/note_system_management/note_system.py:472
+#, python-format
+msgid "Product partner note"
+msgstr "Note prodotto partner"
+
+#. module: note_system_management
+#: model:ir.ui.menu,name:note_system_management.menu_note_product_report
+#: field:note.product.report.line,report_id:0
+msgid "Report"
+msgstr "Stampe"
+
+#. module: note_system_management
+#: field:note.product.report,name:0
+msgid "Report name"
+msgstr "Report name"
+
+#. module: note_system_management
+#: model:ir.model,name:note_system_management.model_sale_order
+msgid "Sales Order"
+msgstr "Ordine di vendita"
+
+#. module: note_system_management
+#: field:note.product.report.line,sequence:0 field:note.type,sequence:0
+msgid "Sequence"
+msgstr "Sequenza"
+
+#. module: note_system_management
+#: code:addons/note_system_management/note_system.py:417
+#, python-format
+msgid "Setup config paremeter not found!"
+msgstr "Impostazione parametri di configurazione non trovata!"
+
+#. module: note_system_management
+#: field:note.note,image_id:0
+msgid "Static image"
+msgstr "Immagine statica"
+
+#. module: note_system_management
+#: model:ir.ui.menu,name:note_system_management.menu_note_type
+msgid "Tipology"
+msgstr "Tipologia"
+
+#. module: note_system_management
+#: field:note.note,name:0 field:note.product.report.line,name:0
+msgid "Title"
+msgstr "Titolo"
+
+#. module: note_system_management
+#: view:note.image:note_system_management.view_note_image_search
+#: field:note.image,type_id:0
+#: view:note.note:note_system_management.view_note_note_search
+#: field:note.note,type_id:0 field:note.product.report.line,type_id:0
+msgid "Type"
+msgstr "Tipo"
+
+#. module: note_system_management
+#: view:note.product.report:note_system_management.view_note_product_report_form
+msgid "note"
+msgstr "nota"
