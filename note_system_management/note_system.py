@@ -446,6 +446,92 @@ class ProductProduct(orm.Model):
             'note_parent_id': product_ids[0],
             }, context=context)        
         
+    def get_domain_note_event_filter(self, cr, uid, line, block='pr', 
+            context=None):
+        ''' Filter block management:
+            pass line and get filter for particular block
+            
+            Possibilities:
+            pr: product only
+            pa: partner only
+            ad: destination only
+            or: order only
+            pr-pa: product-partner
+            pr-ad: product-destination
+            pr-or: product-partner-order
+            pr-de: product-partner-order-detail
+            all: all note no filter
+        '''
+        # ---------------------------------------------------------------------
+        # Filter product always present:
+        # ---------------------------------------------------------------------
+        product = line.product_id
+        note_parent_id = product.note_parent_id.id
+        if note_parent_id:
+            domain = [('product_id', 'in', (product.id, note_parent_id))]
+        else:    
+            domain = [('product_id', '=', product.id)]
+
+        # ---------------------------------------------------------------------
+        # Start filter block cases:            
+        # ---------------------------------------------------------------------
+        # Check particular case:
+        if block == 'ad' and not line.order_id.destination_partner_id:
+            return False
+        
+        if block == 'pr': # Product block:
+            domain.extend([                
+                ('partner_id', '=', False),
+                ('address_id', '=', False),
+                ('order_id', '=', False),
+                ('line_id', '=', False),
+                ])
+        elif block == 'pa': # Partner block:
+            # Only partner filter:
+            domain = [
+                ('partner_id', '=', line.order_id.partner_id.id),
+                ('address_id', '=', False),
+                ('order_id', '=', False),
+                ('line_id', '=', False),
+                ]
+        elif block == 'ad': # Address:
+            # Only partner filter:
+            domain = [ 
+                ('address_id', '=', line.order_id.destination_partner_id.id),
+                ('order_id', '=', False),
+                ('line_id', '=', False),
+                ]
+        elif block == 'or':
+            domain = [                
+                ('order_id', '=', line.order_id.id),
+                ('line_id', '=', False),
+                ]
+        elif block == 'de':
+            domain = [                
+                ('line_id', '=', line.id),
+                ]             
+        elif block == 'pr-pa':
+            domain.extend([                
+                ('partner_id', '=', line.order_id.partner_id.id),
+                ('address_id', '=', False),
+                ('order_id', '=', False),
+                ('line_id', '=', False),
+                ])
+        elif block == 'pr-ad':
+            domain.extend([         
+                ('address_id', '=', line.order_id.destination_partner_id.id),
+                ('order_id', '=', False),
+                ('line_id', '=', False),
+                ])
+        elif block == 'pr-or':
+            domain.extend([                
+                ('order_id', '=', line.order_id.id),
+                ('line_id', '=', False),
+                ])
+        elif block == 'all':
+            pass
+        return domain
+                
     def open_button_note_event(self, cr, uid, ids, block='pr', context=None):
         ''' Button utility for filter note, case:
             pr: product only
