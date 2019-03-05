@@ -226,7 +226,7 @@ class NoteNote(orm.Model):
             ('image_text', 'Image and title'),
             ('complete', 'Complete'),
             #('label', 'Label'), # TODO manage label mode
-            ], 'Layout', readonly=False, )
+            ], 'Layout')
         }
          
     _defaults = {
