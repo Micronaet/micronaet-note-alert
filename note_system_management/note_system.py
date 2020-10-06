@@ -490,6 +490,7 @@ class ProductProduct(orm.Model):
             # Only partner filter:
             domain = [
                 ('partner_id', '=', line.order_id.partner_id.id),
+                ('product_id', '=', False),
                 ('address_id', '=', False),
                 ('order_id', '=', False),
                 ('line_id', '=', False),
@@ -498,32 +499,34 @@ class ProductProduct(orm.Model):
             # Only partner filter:
             domain = [ 
                 ('address_id', '=', line.order_id.destination_partner_id.id),
+                ('product_id', '=', False),
                 ('order_id', '=', False),
                 ('line_id', '=', False),
                 ]
-        elif block == 'or':
+        elif block == 'or':  # Order
             domain = [                
+                ('product_id', '=', False),
                 ('order_id', '=', line.order_id.id),
                 ('line_id', '=', False),
                 ]
-        elif block == 'de':
+        elif block == 'de':  # Detail
             domain = [                
                 ('line_id', '=', line.id),
                 ]             
-        elif block == 'pr-pa':
+        elif block == 'pr-pa':  # Product partner
             domain.extend([                
                 ('partner_id', '=', line.order_id.partner_id.id),
                 ('address_id', '=', False),
                 ('order_id', '=', False),
                 ('line_id', '=', False),
                 ])
-        elif block == 'pr-ad':
+        elif block == 'pr-ad':  # Product address
             domain.extend([         
                 ('address_id', '=', line.order_id.destination_partner_id.id),
                 ('order_id', '=', False),
                 ('line_id', '=', False),
                 ])
-        elif block == 'pr-or':
+        elif block == 'pr-or':  # Product order
             domain.extend([                
                 ('order_id', '=', line.order_id.id),
                 ('line_id', '=', False),
