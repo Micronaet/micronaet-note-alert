@@ -33,6 +33,7 @@
                     <field name="name"/>
                     <field name="type_id" />                    
                     <field name="note" />
+                    <field name="department_ids" widget="many2many_tags"/>
                 </tree>
             </field>
         </record>
