@@ -33,7 +33,6 @@
                     <field name="name"/>
                     <field name="type_id" />                    
                     <field name="note" />
-                    <field name="department_ids" widget="many2many_tags"/>
                 </tree>
             </field>
         </record>
@@ -131,7 +130,8 @@
             <field name="arch" type="xml">
                 <tree string="Note type" version="7.0">        
                     <field name="sequence"/>
-                    <field name="name"/>                    
+                    <field name="name"/>
+                    <field name="department_ids" widget="many2many_tags"/>
                     <field name="note" nolabel="1" colspan="4"/>
                 </tree>
             </field>
